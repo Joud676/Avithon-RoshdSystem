@@ -1,10 +1,4 @@
-function showSettings() {
-    document.getElementById('settingsModal').style.display = 'flex';
-}
 
-function closeModal() {
-    document.getElementById('settingsModal').style.display = 'none';
-}
 
 window.onclick = function (event) {
     const modal = document.getElementById('settingsModal');

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <title>نظام رُشد - مراقبة APU</title>
+    <title>نظام رُشد - لوحة المراقبة</title>
     <link rel="stylesheet" href="../CSS/dashboard.css">
     <link rel="icon" type="image/png" href="../Media/roshdLogo-Blue-Vertical.png">
 </head>
@@ -147,16 +147,7 @@
                                 <label for="runtimeInput">مدة التشغيل (دقائق):</label>
                                 <input type="number" id="runtimeInput" placeholder="60" min="1">
                             </div>
-                            <div class="modal" id="settingsModal">
-                                <div class="modal-content">
-                                    <h3 style="color: #264285; margin-bottom: 1rem;">إعدادات النظام</h3>
-                                    <p>الحد الأقصى لتشغيل APU: <strong>120 دقيقة</strong></p>
-                                    <p>تردد التحديث: <strong>30 ثانية</strong></p>
-                                    <p>تنبيهات SMS: <strong>مفعلة</strong></p>
-                                    <button class="btn btn-primary" onclick="closeModal()"
-                                        style="margin-top: 1rem;">إغلاق</button>
-                                </div>
-                            </div>
+
                             <button id="calculateBtn" class="btn btn-primary">احسب الانبعاثات</button>
                         </div>
                         <div class="calculator-results" id="calculatorResults">
