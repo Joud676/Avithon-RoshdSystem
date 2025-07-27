@@ -634,278 +634,473 @@ body {
         background: white !important;
     }
 }
-/* Additional styles for reports page */
-        .reports-container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 10;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            animation: slideUp 0.8s ease-out;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
 
-        .reports-header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid #f0f2f5;
-            padding-bottom: 30px;
-        }
+.reports-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: slideUp 0.8s ease-out;
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-        .page-title {
-            color: #333;
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+.reports-header {
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #f0f2f5;
+    padding-bottom: 30px;
+}
 
-        .page-subtitle {
-            color: #666;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
+.page-title {
+    color: #333;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
 
-        .date-filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
+.page-subtitle {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
 
-        .date-filter-btn {
-            padding: 10px 20px;
-            border: 2px solid #e0e6ed;
-            background: white;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 500;
-            color: #666;
-        }
+.date-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
 
-        .date-filter-btn.active,
-        .date-filter-btn:hover {
-            border-color: #4561db;
-            background: #4561db;
-            color: white;
-            transform: translateY(-2px);
-        }
+.date-filter-btn {
+    padding: 10px 20px;
+    border: 2px solid #e0e6ed;
+    background: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 500;
+    color: #666;
+}
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
+.date-filter-btn.active,
+.date-filter-btn:hover {
+    border-color: #304d8f;
+    background: #304d8f;
+    color: white;
+    transform: translateY(-2px);
+}
 
-        .stat-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(69, 97, 219, 0.1);
-            transition: all 0.3s ease;
-        }
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
 
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            margin-bottom: 15px;
-        }
+.nav-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 2rem;
+}
 
-        .stat-icon.emissions { background: linear-gradient(135deg, #ef4444, #dc2626); }
-        .stat-icon.savings { background: linear-gradient(135deg, #10b981, #059669); }
-        .stat-icon.alerts { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .stat-icon.efficiency { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 0.5rem;
+    backdrop-filter: blur(10px);
+}
 
-        .stat-value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 5px;
-        }
+.nav-item {
+    position: relative;
+}
 
-        .stat-label {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.8rem 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    min-width: 80px;
+}
 
-        .stat-change {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 6px;
-            display: inline-block;
-        }
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    transform: translateY(-2px);
+}
 
-        .stat-change.positive {
-            background: #dcfce7;
-            color: #166534;
-        }
+.nav-item.active .nav-link {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
 
-        .stat-change.negative {
-            background: #fef2f2;
-            color: #dc2626;
-        }
+.nav-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+}
 
-        .charts-section {
-            margin-bottom: 40px;
-        }
+.nav-text {
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
 
-        .charts-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    font-size: 0.6rem;
+    font-weight: bold;
+    padding: 0.2rem 0.4rem;
+    border-radius: 10px;
+    min-width: 16px;
+    text-align: center;
+    animation: pulse-notification 2s infinite;
+}
 
-        .chart-container {
-            background: white;
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(69, 97, 219, 0.1);
-        }
+@keyframes pulse-notification {
 
-        .chart-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    0%,
+    100% {
+        transform: scale(1);
+    }
 
-        .chart-canvas {
-            max-height: 300px;
-        }
+    50% {
+        transform: scale(1.1);
+    }
+}
 
-        .kpi-section {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(69, 97, 219, 0.1);
-            margin-bottom: 30px;
-        }
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 2rem;
+}
 
-        .kpi-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 25px;
-            text-align: center;
-        }
+@media (max-width: 1024px) {
+    .nav-menu {
+        margin: 0 1rem;
+    }
 
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
+    .nav-list {
+        gap: 0.3rem;
+        padding: 0.3rem;
+    }
 
-        .kpi-item {
-            text-align: center;
-            padding: 20px;
-            background: #f8f9ff;
-            border-radius: 12px;
-            border: 1px solid #e0e6ed;
-        }
+    .nav-link {
+        padding: 0.6rem 0.8rem;
+        min-width: 60px;
+    }
 
-        .kpi-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #4561db;
-            margin-bottom: 5px;
-        }
+    .nav-text {
+        font-size: 0.7rem;
+    }
 
-        .kpi-label {
-            color: #666;
-            font-size: 14px;
-        }
+    .nav-icon {
+        font-size: 1rem;
+    }
+}
 
-        .download-section {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #f8f9ff 0%, #e0e7ff 100%);
-            border-radius: 16px;
-            border: 1px solid rgba(69, 97, 219, 0.2);
-        }
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-        .download-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-        }
+    .nav-menu {
+        order: 2;
+        margin: 0;
+    }
 
-        .download-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    .status-bar {
+        order: 3;
+        gap: 1rem;
+    }
 
-        .download-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 12px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .nav-list {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-        .download-btn.pdf {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
+    .nav-link {
+        padding: 0.5rem 0.6rem;
+        min-width: 50px;
+    }
 
-        .download-btn.excel {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
+    .nav-text {
+        display: none;
+    }
 
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
+    .nav-icon {
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+}
 
-        @media (max-width: 1024px) {
-            .charts-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+.nav-link:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.25);
+}
 
-        @media (max-width: 768px) {
-            .reports-container {
-                padding: 25px;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .date-filters {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
+.nav-item:hover .notification-badge {
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    60%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    40% {
+        transform: translateY(-3px) scale(1.1);
+    }
+
+    80% {
+        transform: translateY(-1px) scale(1.05);
+    }
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(69, 97, 219, 0.1);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.stat-icon.emissions {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.stat-icon.savings {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.stat-icon.alerts {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.stat-icon.efficiency {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.stat-change {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.stat-change.positive {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.stat-change.negative {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.charts-section {
+    margin-bottom: 40px;
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(69, 97, 219, 0.1);
+}
+
+.chart-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.chart-canvas {
+    max-height: 300px;
+}
+
+.kpi-section {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(69, 97, 219, 0.1);
+    margin-bottom: 30px;
+}
+
+.kpi-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.kpi-item {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9ff;
+    border-radius: 12px;
+    border: 1px solid #e0e6ed;
+}
+
+.kpi-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #304d8f;
+    margin-bottom: 5px;
+}
+
+.kpi-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.download-section {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e0e7ff 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(69, 97, 219, 0.2);
+}
+
+.download-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.download-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.download-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.download-btn.pdf {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.download-btn.excel {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1024px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .reports-container {
+        padding: 25px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .date-filters {
+        flex-direction: column;
+        align-items: center;
+    }
+}

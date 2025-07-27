@@ -14,20 +14,49 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <img class="logo-icon" src="../Media/roshdLogo-white.png">
+                <img class="logo-icon" src="../Media/roshdLogo-white.png" alt="شعار رُشد">
                 <div>
                     <p>نحو أرضٍ ذكية وسماءٍ نقية</p>
                 </div>
             </div>
+
+
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li class="nav-item active">
+                        <a href="#dashboard" class="nav-link">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-text">الداشبورد</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#aircraft-details" class="nav-link">
+                            <span class="nav-icon">✈️</span>
+                            <span class="nav-text">تفاصيل الطائرة</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <span class="nav-icon">📋</span>
+                            <span class="nav-text">التقارير</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#notifications" class="nav-link">
+                            <span class="nav-icon">🔔</span>
+                            <span class="nav-text">الإشعارات</span>
+                            <span class="notification-badge">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings" class="nav-link">
+                            <span class="nav-icon">⚙️</span>
+                            <span class="nav-text">الإعدادات</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
             <div class="status-bar">
-                <div class="status-item">
-                    <div>الطائرات النشطة</div>
-                    <div class="status-number" id="activeCount">12</div>
-                </div>
-                <div class="status-item">
-                    <div>التنبيهات</div>
-                    <div class="status-number alert-number" id="alertCount">3</div>
-                </div>
                 <div class="status-item">
                     <div>الحالة</div>
                     <div class="connected">مُتصل <span class="live-indicator"></span></div>
@@ -148,7 +177,17 @@
             </div>
 
             <div class="sidebar">
+                <div class="card alerts-sidebar">
+                    <div class="card-header">
+                        <h3 class="card-title">🚨 التنبيهات العاجلة</h3>
+                        <span class="status-badge status-alert" id="alertBadge">3 تنبيهات</span>
+                    </div>
+                    <div class="alerts-list" id="alertsSidebar">
+                    </div>
+                </div>
+
                 <div class="card ai-insights-sidebar">
+
                     <div class="card-header">
                         <h3 class="card-title">🤖 رؤى الذكاء الاصطناعي</h3>
                     </div>
@@ -184,15 +223,6 @@
                             <span>توصيات مطبقة:</span>
                             <strong>47/52</strong>
                         </div>
-                    </div>
-                </div>
-
-                <div class="card alerts-sidebar">
-                    <div class="card-header">
-                        <h3 class="card-title">🚨 التنبيهات العاجلة</h3>
-                        <span class="status-badge status-alert" id="alertBadge">3 تنبيهات</span>
-                    </div>
-                    <div class="alerts-list" id="alertsSidebar">
                     </div>
                 </div>
 
