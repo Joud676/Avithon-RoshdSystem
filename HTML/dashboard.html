@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>نظام رُشد - مراقبة APU</title>
+    <link rel="stylesheet" href="../CSS/dashboard.css">
+    <link rel="icon" type="image/png" href="Media/roshdLogo-Blue-Vertical">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img class="logo-icon" src="../Media/roshdLogo-white.png">
+                <div>
+                    <p>نحو أرضٍ ذكية وسماءٍ نقية</p>
+                </div>
+            </div>
+            <div class="status-bar">
+                <div class="status-item">
+                    <div>الطائرات النشطة</div>
+                    <div class="status-number" id="activeCount">12</div>
+                </div>
+                <div class="status-item">
+                    <div>التنبيهات</div>
+                    <div class="status-number alert-number" id="alertCount">3</div>
+                </div>
+                <div class="status-item">
+                    <div>الحالة</div>
+                    <div class="connected">مُتصل <span class="live-indicator"></span></div>
+                </div>
+                <div class="status-item">
+                    <div id="currentTime"></div>
+                    <div class="airport-code">مطار الملك خالد الدولي - RUH</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalFlights">8</div>
+                <div class="stat-label">طائرات على الأرض</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="apuRunning">6</div>
+                <div class="stat-label">طائرات تعمل بـ APU</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="fuelConsumed">2,724</div>
+                <div class="stat-label">وقود مستهلك اليوم (كغ)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="co2Saved">1,425</div>
+                <div class="stat-label">CO₂ موفر (كغ)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="activeAlerts">5</div>
+                <div class="stat-label">تنبيهات نشطة</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="efficiencyRate">75%</div>
+                <div class="stat-label">كفاءة النظام</div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="main-area">
+                <div class="card aircraft-list">
+                    <div class="card-header">
+                        <h3 class="card-title">مراقبة الطائرات</h3>
+                        <div>
+                            <button class="btn btn-primary" onclick="refreshData()">تحديث</button>
+                            <button class="btn btn-warning" onclick="showSettings()">الإعدادات</button>
+                        </div>
+                    </div>
+                    <div class="aircraft-grid" id="aircraftGrid">
+                    </div>
+                </div>
+
+                <div class="charts-section">
+                    <div class="card-header">
+                        <h3 class="card-title">📊 الرسوم البيانية</h3>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>استهلاك الوقود (24 ساعة)</h3>
+                            <canvas id="fuelChart" width="300" height="150"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>مقارنة الانبعاثات</h3>
+                            <canvas id="emissionsChart" width="300" height="150"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card calculator-section">
+                    <div class="card-header">
+                        <h3 class="card-title">🧮 حاسبة الانبعاثات</h3>
+                        <span class="status-badge status-running">مبني على أرقام حقيقية</span>
+                    </div>
+                    <div class="calculator-card">
+                        <div class="calculator-inputs">
+                            <div class="input-group">
+                                <label for="aircraftSelect">نوع الطائرة:</label>
+                                <select id="aircraftSelect">
+                                    <option value="A320-neo">Airbus A320-neo</option>
+                                    <option value="A320-ceo">Airbus A320-ceo</option>
+                                    <option value="B777-300ER">Boeing 777-300ER</option>
+                                    <option value="A330-300">Airbus A330-300</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="runtimeInput">مدة التشغيل (دقائق):</label>
+                                <input type="number" id="runtimeInput" placeholder="60" min="1">
+                            </div>
+                            <div class="modal" id="settingsModal">
+                                <div class="modal-content">
+                                    <h3 style="color: #264285; margin-bottom: 1rem;">إعدادات النظام</h3>
+                                    <p>الحد الأقصى لتشغيل APU: <strong>120 دقيقة</strong></p>
+                                    <p>تردد التحديث: <strong>30 ثانية</strong></p>
+                                    <p>تنبيهات SMS: <strong>مفعلة</strong></p>
+                                    <button class="btn btn-primary" onclick="closeModal()"
+                                        style="margin-top: 1rem;">إغلاق</button>
+                                </div>
+                            </div>
+                            <button id="calculateBtn" class="btn btn-primary">احسب الانبعاثات</button>
+                        </div>
+                        <div class="calculator-results" id="calculatorResults">
+
+                        </div>
+                        <div class="info-panel">
+                            <h4>معدلات الاستهلاك (من مصادر رسمية):</h4>
+                            <ul>
+                                <li>A320: 126 كغ وقود/ساعة → 398.16 كغ CO₂/ساعة</li>
+                                <li>B777-300ER: 312 كغ وقود/ساعة → 985.92 كغ CO₂/ساعة</li>
+                                <li>A330-300: 210 كغ وقود/ساعة → 663.6 كغ CO₂/ساعة</li>
+                                <li>GPU كهربائي: 4 كغ CO₂/ساعة</li>
+                                <li>PCA: 16.086 كغ CO₂/ساعة (7 L/hr × 6.0 kg/L × 2.681)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="card ai-insights-sidebar">
+                    <div class="card-header">
+                        <h3 class="card-title">🤖 رؤى الذكاء الاصطناعي</h3>
+                    </div>
+
+                    <div class="ai-card-small prediction">
+                        <h3>🔮 التنبؤات</h3>
+                        <div class="prediction-item">
+                            <span>استهلاك متوقع:</span>
+                            <strong>3,250 كغ</strong>
+                        </div>
+                        <div class="prediction-item">
+                            <span>ذروة الاستخدام:</span>
+                            <strong>15:30-17:00</strong>
+                        </div>
+                    </div>
+
+                    <div class="ai-card-small recommendations">
+                        <h3>💡 التوصيات</h3>
+                        <ul class="recommendations-list">
+                            <li>توصيل GPU للرحلة SV2156</li>
+                            <li>تقليل التشغيل المزدوج</li>
+                            <li>إعادة توزيع الفريق</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card-small metrics">
+                        <h3>📈 مؤشرات الأداء</h3>
+                        <div class="metric-item">
+                            <span>دقة التنبؤات:</span>
+                            <strong class="success">92%</strong>
+                        </div>
+                        <div class="metric-item">
+                            <span>توصيات مطبقة:</span>
+                            <strong>47/52</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card alerts-sidebar">
+                    <div class="card-header">
+                        <h3 class="card-title">🚨 التنبيهات العاجلة</h3>
+                        <span class="status-badge status-alert" id="alertBadge">3 تنبيهات</span>
+                    </div>
+                    <div class="alerts-list" id="alertsSidebar">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="notification-toast" id="notification">
+        تم تحديث البيانات بنجاح
+    </div>
+
+    <script src="../JS/dashboard.js"></script>
+</body>
+
+</html>

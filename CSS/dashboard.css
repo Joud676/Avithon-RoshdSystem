@@ -1,0 +1,712 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    color: #264285;
+    line-height: 1.6;
+    direction: rtl;
+}
+
+.header {
+    background: linear-gradient(135deg, #304d8f 0%, #1a2e5c 100%);
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 20px rgba(38, 66, 133, 0.3);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #264285;
+    font-weight: bold;
+}
+
+.logo h1 {
+    font-size: 1.8em;
+    margin-bottom: 0.2rem;
+}
+
+.logo p {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.status-bar {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.status-item {
+    text-align: center;
+}
+
+.status-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.alert-number {
+    color: #ffc107;
+}
+
+.status-connected {
+    color: #28a745;
+}
+
+.airport-code {
+    font-size: 0.8em;
+    opacity: 0.8;
+}
+
+.live-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #28a745;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.main-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(38, 66, 133, 0.1);
+    border-top: 4px solid #264285;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(38, 66, 133, 0.15);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #264285;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+}
+
+.main-area {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(38, 66, 133, 0.1);
+    padding: 1.5rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    border-color: #264285;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(38, 66, 133, 0.15);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #264285;
+}
+
+.aircraft-list {
+    grid-column: span 1;
+}
+
+.aircraft-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.aircraft-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 4px solid #264285;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.aircraft-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #264285, #1a2e5c);
+}
+
+.aircraft-card.alert {
+    border-left-color: #dc3545;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+}
+
+.aircraft-card.alert::before {
+    background: linear-gradient(90deg, #dc3545, #c82333);
+}
+
+.aircraft-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(38, 66, 133, 0.15);
+}
+
+.aircraft-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.aircraft-id {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #264285;
+}
+
+.aircraft-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.detail-label {
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-weight: 600;
+}
+
+.detail-value {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #264285;
+}
+
+.control-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.status-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-running {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-stopped {
+    background: #e8f5e8;
+    color: #2e7d32;
+}
+
+.status-alert {
+    background: #f8d7da;
+    color: #721c24;
+    animation: pulse 2s infinite;
+}
+
+.status-gpu {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-connected {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-disconnected {
+    background: #fafafa;
+    color: #757575;
+}
+
+.connected {
+    color: white;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.progress-bar {
+    width: 80px;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.progress {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.progress.normal {
+    background: linear-gradient(90deg, #28a745, #20c997);
+}
+
+.progress.warning {
+    background: linear-gradient(90deg, #ffc107, #fd7e14);
+}
+
+.progress.critical {
+    background: linear-gradient(90deg, #dc3545, #c82333);
+}
+
+.charts-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(38, 66, 133, 0.1);
+}
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.chart-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.chart-card h3 {
+    color: #264285;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.calculator-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.calculator-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calculator-inputs label {
+    font-weight: 600;
+    color: #264285;
+    font-size: 0.9em;
+}
+
+.calculator-inputs input,
+.calculator-inputs select {
+    padding: 10px 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 0.9em;
+    transition: border-color 0.3s ease;
+}
+
+.calculator-inputs input:focus,
+.calculator-inputs select:focus {
+    outline: none;
+    border-color: #264285;
+}
+
+.calculator-inputs button {
+    grid-column: span 2;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.calculator-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.result-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.result-value {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #264285;
+}
+
+.info-panel {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.info-panel h4 {
+    color: #264285;
+    margin-bottom: 0.5rem;
+}
+
+.info-panel ul {
+    margin: 0;
+    padding-right: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #304d8f 0%, #1a2e5c 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(38, 66, 133, 0.3);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+    color: white;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    color: white;
+}
+
+.btn-small {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    margin: 0.2rem;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.ai-card-small {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.ai-card-small h3 {
+    color: #264285;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.ai-card-small:last-child {
+    margin-bottom: 0;
+}
+
+.prediction-item,
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 0.8em;
+}
+
+.recommendations-list {
+    list-style: none;
+    font-size: 0.8em;
+}
+
+.recommendations-list li {
+    padding: 3px 0;
+    color: #666;
+}
+
+.alerts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alert-item-small {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+    border-right: 4px solid;
+    font-size: 0.85em;
+}
+
+.alert-item-small.critical {
+    border-color: #dc3545;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+}
+
+.alert-item-small.warning {
+    border-color: #ffc107;
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+}
+
+.alert-item-small.info {
+    border-color: #17a2b8;
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+}
+
+.alert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.alert-priority {
+    font-weight: 600;
+    font-size: 0.8em;
+}
+
+.alert-time {
+    font-size: 0.7em;
+    color: #666;
+}
+
+.alert-message {
+    color: #555;
+    font-size: 0.8em;
+}
+
+
+.success {
+    color: #28a745;
+}
+
+.warning {
+    color: #ff9800;
+}
+
+.critical {
+    color: #dc3545;
+}
+
+.notification-toast {
+    position: fixed;
+    top: 100px;
+    left: 2rem;
+    background: #28a745;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transform: translateX(-400px);
+    transition: transform 0.3s ease;
+}
+
+.notification-toast.show {
+    transform: translateX(0);
+}
+
+.notification-toast.danger {
+    background: #dc3545;
+}
+
+@media (max-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: -1;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 0 1rem;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .status-bar {
+        gap: 1rem;
+    }
+
+    .calculator-inputs {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-inputs button {
+        grid-column: span 1;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .aircraft-details {
+        grid-template-columns: 1fr;
+    }
+
+    .control-buttons {
+        flex-direction: column;
+    }
+
+    .control-buttons .btn {
+        width: 100%;
+    }
+}

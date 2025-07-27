@@ -1,0 +1,229 @@
+{
+    "airport": {
+        "name": "مطار الملك خالد الدولي",
+        "code": "RUH",
+        "timestamp": "2025-01-27T14:30:00Z"
+    },
+    "aircraftTypes": {
+        "A320-neo": {
+            "model": "Airbus A320-neo",
+            "apuConsumption": 126,
+            "maxPassengers": 180
+        },
+        "A320-ceo": {
+            "model": "Airbus A320-ceo",
+            "apuConsumption": 126,
+            "maxPassengers": 174
+        },
+        "B777-300ER": {
+            "model": "Boeing 777-300ER",
+            "apuConsumption": 312,
+            "maxPassengers": 396
+        },
+        "A330-300": {
+            "model": "Airbus A330-300",
+            "apuConsumption": 210,
+            "maxPassengers": 335
+        }
+    },
+    "emissionFactors": {
+        "apu": {
+            "co2Factor": 3.16,
+            "description": "IATA CO2 Calculator Guidelines: kg fuel to kg CO2"
+        },
+        "groundPower": {
+            "electricGPU": {
+                "co2Emissions": 4.0,
+                "unit": "kg CO2-equivalent/hr",
+                "description": "Electricity indirect emissions"
+            },
+            "dieselGPU": {
+                "fuelConsumption": 18,
+                "fuelDensity": 15.3,
+                "emissionFactor": 2.681,
+                "unit": "liters/hr, kg/L, kg CO2/L"
+            },
+            "pca": {
+                "fuelConsumption": 7,
+                "fuelDensity": 6.0,
+                "emissionFactor": 2.681,
+                "unit": "liters/hr, kg/L, kg CO2/L"
+            }
+        }
+    },
+    "airlines": {
+        "SV": {
+            "name": "الخطوط السعودية",
+            "nameEn": "Saudia",
+            "color": "#1E4B8C",
+            "fleet": {
+                "A320-neo": 10,
+                "A320-ceo": 37,
+                "B777-300ER": 37,
+                "A330-300": 37
+            }
+        },
+        "XY": {
+            "name": "طيران ناس",
+            "nameEn": "Flynas",
+            "color": "#E31837",
+            "fleet": {
+                "A320-neo": 58,
+                "A320-ceo": 4,
+                "A330-300": 2
+            }
+        },
+        "F3": {
+            "name": "فلاي أديل",
+            "nameEn": "Flyadeal",
+            "color": "#7B68EE",
+            "fleet": {
+                "A320-neo": 29,
+                "A320-ceo": 11
+            }
+        }
+    },
+    "flights": [
+        {
+            "id": "FL001",
+            "flightNumber": "SV1234",
+            "airline": "SV",
+            "aircraftType": "B777-300ER",
+            "registration": "HZ-AK19",
+            "gate": "A1",
+            "status": "على الأرض",
+            "arrival": "2025-01-27T13:45:00Z",
+            "departure": "2025-01-27T16:30:00Z",
+            "passengers": 342,
+            "apu": {
+                "status": "مُشغل",
+                "startTime": "2025-01-27T13:50:00Z",
+                "duration": 40
+            },
+            "groundPower": {
+                "gpu": {
+                    "connected": true,
+                    "type": "electric",
+                    "startTime": "2025-01-27T14:15:00Z"
+                },
+                "pca": {
+                    "connected": true,
+                    "startTime": "2025-01-27T14:20:00Z"
+                }
+            }
+        },
+        {
+            "id": "FL002",
+            "flightNumber": "XY419",
+            "airline": "XY",
+            "aircraftType": "A320-neo",
+            "registration": "HZ-NS28",
+            "gate": "B3",
+            "status": "على الأرض",
+            "arrival": "2025-01-27T14:10:00Z",
+            "departure": "2025-01-27T17:45:00Z",
+            "passengers": 164,
+            "apu": {
+                "status": "متوقف",
+                "startTime": null,
+                "duration": 0
+            },
+            "groundPower": {
+                "gpu": {
+                    "connected": true,
+                    "type": "electric",
+                    "startTime": "2025-01-27T14:12:00Z"
+                },
+                "pca": {
+                    "connected": true,
+                    "startTime": "2025-01-27T14:15:00Z"
+                }
+            }
+        },
+        {
+            "id": "FL003",
+            "flightNumber": "F31205",
+            "airline": "F3",
+            "aircraftType": "A320-neo",
+            "registration": "HZ-FA15",
+            "gate": "C2",
+            "status": "على الأرض",
+            "arrival": "2025-01-27T12:30:00Z",
+            "departure": "2025-01-27T15:20:00Z",
+            "passengers": 156,
+            "apu": {
+                "status": "مُشغل",
+                "startTime": "2025-01-27T12:35:00Z",
+                "duration": 115
+            },
+            "groundPower": {
+                "gpu": {
+                    "connected": false,
+                    "type": null,
+                    "startTime": null
+                },
+                "pca": {
+                    "connected": false,
+                    "startTime": null
+                }
+            }
+        },
+        {
+            "id": "FL004",
+            "flightNumber": "SV2156",
+            "airline": "SV",
+            "aircraftType": "A330-300",
+            "registration": "HZ-AQ12",
+            "gate": "D1",
+            "status": "على الأرض",
+            "arrival": "2025-01-27T11:15:00Z",
+            "departure": "2025-01-27T14:50:00Z",
+            "passengers": 298,
+            "apu": {
+                "status": "مُشغل",
+                "startTime": "2025-01-27T11:20:00Z",
+                "duration": 190
+            },
+            "groundPower": {
+                "gpu": {
+                    "connected": false,
+                    "type": null,
+                    "startTime": null
+                },
+                "pca": {
+                    "connected": false,
+                    "startTime": null
+                }
+            }
+        }
+    ],
+    "alerts": [
+        {
+            "id": "ALT001",
+            "flightNumber": "SV2156",
+            "type": "تجاوز وقت APU",
+            "priority": "حرج",
+            "message": "الرحلة SV2156 تشغل APU لأكثر من 3 ساعات",
+            "timestamp": "2025-01-27T14:20:00Z",
+            "status": "نشط"
+        },
+        {
+            "id": "ALT002",
+            "flightNumber": "F31205",
+            "type": "تجاوز وقت APU",
+            "priority": "تحذير",
+            "message": "الرحلة F31205 تشغل APU لأكثر من ساعة بدون طاقة أرضية",
+            "timestamp": "2025-01-27T14:05:00Z",
+            "status": "نشط"
+        },
+        {
+            "id": "ALT003",
+            "flightNumber": "XY1847",
+            "type": "تنبيه مسبق",
+            "priority": "تنبيه",
+            "message": "الرحلة XY1847 تقترب من حد الساعة للـ APU",
+            "timestamp": "2025-01-27T14:25:00Z",
+            "status": "نشط"
+        }
+    ]
+}

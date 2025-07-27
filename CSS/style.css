@@ -1,9 +1,3 @@
-/* ====================================
-   رُشد - نظام مراقبة وحدات الطاقة المساعدة
-   Rushd APU Monitoring System - Simplified Styles
-   ==================================== */
-
-/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -12,19 +6,15 @@
 
 html {
     overflow-y: auto;
-    /* نتأكد إن الـ html يسمح بالسكرول */
     overflow-x: hidden;
-    /* نمنع السكرول الأفقي بس */
     height: 100%;
 }
 
 body {
     height: auto;
-    /* نخلي الـ body يأخذ المساحة الكاملة */
     min-height: 100vh;
 }
 
-/* Remove default focus outlines */
 *:focus {
     outline: none !important;
 }
@@ -39,30 +29,23 @@ select:focus {
     appearance: none;
 }
 
-/* مؤشر كتابة عادي ونحيف */
 input {
     caret-color: #666 !important;
-    /* لون رمادي أفتح */
     caret-width: 1px !important;
-    /* عرض نحيف */
 }
 
-/* Main Layout */
 body {
     font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #4561db 0%, #2c3e50 100%);
+    background: linear-gradient(135deg, #304d8f 0%, #1a2e5c 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
     overflow: auto;
-    /* نخلي الصفحة تسكرول عادي */
     margin: 0;
-    /* نتأكد ما فيه margin */
 }
 
-/* Background Animation */
 .bg-animation {
     position: fixed;
     top: 0;
@@ -118,7 +101,6 @@ body {
     }
 }
 
-/* Particles */
 .particles {
     position: absolute;
     width: 100%;
@@ -153,22 +135,18 @@ body {
     }
 }
 
-/* Login Container */
 .login-container {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border-radius: 24px;
     padding: 45px 40px;
-    /* قللنا من 60px 50px */
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 420px;
-    /* قللنا من 480px */
     position: relative;
     z-index: 10;
     border: 1px solid rgba(255, 255, 255, 0.3);
     animation: slideUp 0.8s ease-out;
-    /* شيلنا max-height وoverflow للكونتينر */
 }
 
 @keyframes slideUp {
@@ -183,11 +161,9 @@ body {
     }
 }
 
-/* Header */
 .login-header {
     text-align: center;
     margin-bottom: 35px;
-    /* قللنا من 40px */
 }
 
 .logo-section {
@@ -195,17 +171,14 @@ body {
     align-items: center;
     justify-content: center;
     gap: 18px;
-    /* قللنا من 20px */
     margin-bottom: 25px;
-    /* قللنا من 30px */
     flex-wrap: wrap;
 }
 
 .logo-gaca {
     width: 56px;
-    /* قللنا من 64px */
     height: 56px;
-    background: linear-gradient(135deg, #4561db, #6c7ae0);
+    background: linear-gradient(135deg, #304d8f 0%, #1a2e5c 100%);
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -228,12 +201,11 @@ body {
 }
 
 .logo-rushd {
-    background: linear-gradient(135deg, #4561db, #2c3e50);
+    background: linear-gradient(135deg, #304d8f 0%, #1a2e5c 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-size: 42px;
-    /* قللنا من 48px */
     font-weight: 700;
     line-height: 1.2;
 }
@@ -248,24 +220,18 @@ body {
 .welcome-text {
     color: #333;
     font-size: 22px;
-    /* قللنا من 24px */
     font-weight: 600;
     margin: 18px 0 8px;
-    /* قللنا المسافات */
 }
 
 .sub-text {
     color: #666;
     font-size: 15px;
-    /* قللنا من 16px */
     margin-bottom: 35px;
-    /* قللنا من 40px */
 }
 
-/* Form Styles */
 .form-group {
     margin-bottom: 22px;
-    /* قللنا من 25px */
 }
 
 .form-group label {
@@ -283,7 +249,6 @@ body {
 .form-control {
     width: 100%;
     padding: 16px 50px 16px 20px;
-    /* عكسنا الـ padding - اليسار 20px واليمين 50px */
     border: 2px solid #e0e6ed;
     border-radius: 12px;
     font-size: 16px;
@@ -292,14 +257,10 @@ body {
     color: #333;
     font-family: 'Cairo', sans-serif;
     caret-color: #666;
-    /* مؤشر رمادي أفتح */
     direction: rtl;
-    /* نص من اليمين لليسار */
     text-align: right;
-    /* محاذاة النص لليمين */
 }
 
-/* إصلاح مؤشر الكتابة للمتصفحات المختلفة */
 .form-control::-webkit-text-fill-color {
     color: #333;
 }
@@ -318,7 +279,7 @@ body {
 
 .form-control:focus {
     outline: none !important;
-    border-color: #4561db;
+    border-color: #304d8f;
     background: white;
     box-shadow: 0 0 0 4px rgba(69, 97, 219, 0.1);
     transform: translateY(-2px);
@@ -332,10 +293,9 @@ body {
 .input-icon {
     position: absolute;
     right: 18px;
-    /* غيرناها من left إلى right */
     top: 50%;
     transform: translateY(-50%);
-    color: #4561db;
+    color: #304d8f;
     font-size: 18px;
     transition: all 0.3s ease;
     pointer-events: none;
@@ -348,7 +308,6 @@ body {
 .password-toggle {
     position: absolute;
     left: 18px;
-    /* غيرناها من right إلى left */
     top: 50%;
     transform: translateY(-50%);
     background: none;
@@ -362,21 +321,20 @@ body {
 }
 
 .password-toggle:hover {
-    color: #4561db;
+    color: #304d8f;
     background: rgba(69, 97, 219, 0.1);
     transform: translateY(-50%) scale(1.1);
 }
 
 .password-toggle:focus {
     outline: none !important;
-    color: #4561db;
+    color: #304d8f;
     background: rgba(69, 97, 219, 0.1);
 }
 
-/* Button */
 .login-btn {
     width: 100%;
-    background: linear-gradient(135deg, #4561db 0%, #6c7ae0 100%);
+    background: linear-gradient(135deg, #304d8f 0%, #1a2e5c 100%);
     color: white;
     border: none;
     padding: 18px 24px;
@@ -448,14 +406,13 @@ body {
     }
 }
 
-/* Forgot Password */
 .forgot-password {
     text-align: center;
     margin-top: 25px;
 }
 
 .forgot-password a {
-    color: #4561db;
+    color: #304d8f;
     text-decoration: none;
     font-weight: 500;
     font-size: 14px;
@@ -472,7 +429,6 @@ body {
     background: rgba(69, 97, 219, 0.1);
 }
 
-/* Messages */
 .error-message,
 .success-message {
     padding: 12px 16px;
@@ -508,7 +464,6 @@ body {
     }
 }
 
-/* Floating Effect */
 .floating {
     animation: containerFloat 4s ease-in-out infinite;
 }
@@ -525,24 +480,17 @@ body {
     }
 }
 
-/* Custom Scrollbar - نشيل الكستوم سكرول بار */
-/* شيلنا كل الكود الخاص بالسكرول بار المخصص */
-
-/* Responsive Design */
 @media (max-width: 768px) {
     body {
         padding: 15px;
         align-items: flex-start;
-        /* نخلي الكونتينر يبدأ من فوق في الجوال */
         padding-top: 30px;
         min-height: 100vh;
-        /* نتأكد إن الصفحة كاملة */
     }
 
     .login-container {
         padding: 40px 30px;
         border-radius: 20px;
-        /* شيلنا max-height */
     }
 
     .logo-section {
@@ -570,18 +518,15 @@ body {
 
     .form-control {
         padding: 14px 45px 14px 15px;
-        /* عكسنا للجوال أيضاً */
     }
 
     .input-icon {
         right: 15px;
-        /* غيرناها من left */
         font-size: 16px;
     }
 
     .password-toggle {
         left: 15px;
-        /* غيرناها من right */
         font-size: 16px;
     }
 
@@ -590,7 +535,6 @@ body {
         font-size: 16px;
     }
 
-    /* Hide some animations on mobile */
     .plane-2,
     .plane-3 {
         display: none;
@@ -602,13 +546,11 @@ body {
         padding: 10px;
         padding-top: 20px;
         min-height: 100vh;
-        /* نتأكد الصفحة كاملة */
     }
 
     .login-container {
         padding: 30px 20px;
         border-radius: 16px;
-        /* شيلنا max-height */
     }
 
     .logo-gaca {
@@ -630,19 +572,16 @@ body {
 
     .form-control {
         padding: 12px 40px 12px 12px;
-        /* عكسنا للجوال الصغير */
         font-size: 14px;
     }
 
     .input-icon {
         right: 12px;
-        /* غيرناها من left */
         font-size: 14px;
     }
 
     .password-toggle {
         left: 12px;
-        /* غيرناها من right */
         font-size: 14px;
     }
 
@@ -651,7 +590,6 @@ body {
         font-size: 14px;
     }
 
-    /* Disable heavy animations */
     .login-container,
     .logo-gaca {
         animation: none;
@@ -663,7 +601,6 @@ body {
     }
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
 
     *,
@@ -680,7 +617,6 @@ body {
     }
 }
 
-/* Print styles */
 @media print {
     body {
         background: white !important;
