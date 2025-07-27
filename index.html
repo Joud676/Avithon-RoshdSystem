@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رُشد - نظام مراقبة وحدات الطاقة المساعدة</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+    <div class="bg-animation">
+        <div class="particles"></div>
+        <svg class="plane-silhouette plane-1" width="200" height="60" viewBox="0 0 200 60">
+            <path
+                d="M20,30 L180,30 L190,25 L195,20 L200,25 L190,35 L180,30 L160,35 L140,30 L120,35 L100,30 L80,35 L60,30 L40,35 L20,30 Z"
+                fill="rgba(255,255,255,0.1)" />
+        </svg>
+        <svg class="plane-silhouette plane-2" width="180" height="50" viewBox="0 0 180 50">
+            <path
+                d="M15,25 L165,25 L175,20 L180,15 L175,30 L165,25 L145,30 L125,25 L105,30 L85,25 L65,30 L45,25 L25,30 L15,25 Z"
+                fill="rgba(255,255,255,0.1)" />
+        </svg>
+        <svg class="plane-silhouette plane-3" width="220" height="70" viewBox="0 0 220 70">
+            <path
+                d="M25,35 L195,35 L205,30 L210,25 L215,30 L205,40 L195,35 L175,40 L155,35 L135,40 L115,35 L95,40 L75,35 L55,40 L35,35 L25,35 Z"
+                fill="rgba(255,255,255,0.1)" />
+        </svg>
+    </div>
+
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo-section">
+                <div class="logo-gaca">
+                    <!-- استبدل هذا الجزء بلوقوك -->
+                    <img src="Media/roshdLogo.png" alt="شعار الشركة"
+                        style="width: 100%; height: 100%; object-fit: contain;">
+                    <!-- أو استخدم SVG مخصص -->
+                </div>
+                <div>
+                    <h1 class="logo-rushd">رُشد</h1>
+                </div>
+            </div>
+            <p class="system-title">نظام مراقبة وحدات الطاقة المساعدة (APU)</p>
+            <h2 class="welcome-text">مرحباً بك</h2>
+            <p class="sub-text">قم بتسجيل الدخول للوصول إلى النظام</p>
+        </div>
+
+
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+
+        <form id="loginForm" novalidate>
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني أو اسم المستخدم</label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" class="form-control" placeholder="أدخل بريدك الإلكتروني" required
+                        autocomplete="email">
+                    <i class="fas fa-envelope input-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required
+                        autocomplete="current-password">
+                    <i class="fas fa-lock input-icon"></i>
+                    <button type="button" class="password-toggle" aria-label="إظهار/إخفاء كلمة المرور">
+                        <i class="fas fa-eye" id="passwordIcon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="login-btn">
+                <span class="btn-text">تسجيل الدخول</span>
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span>جارٍ تسجيل الدخول...</span>
+                </div>
+            </button>
+        </form>
+
+        <div class="forgot-password">
+            <a href="#" id="forgotPasswordLink">
+                <i class="fas fa-key"></i> نسيت كلمة المرور؟
+            </a>
+        </div>
+    </div>
+
+    <script src="JS/script.js"></script>
+</body>
+
+</html>
