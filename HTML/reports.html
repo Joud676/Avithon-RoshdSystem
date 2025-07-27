@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رُشد - التقارير والإحصائيات</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <script src="../JS/reports.js"></script>
+
+</head>
+<body>
+    <div class="bg-animation">
+        <svg class="plane-silhouette plane-1" width="200" height="60" viewBox="0 0 200 60">
+            <path d="M20,30 L180,30 L190,25 L195,20 L200,25 L190,35 L180,30 L160,35 L140,30 L120,35 L100,30 L80,35 L60,30 L40,35 L20,30 Z" fill="rgba(255,255,255,0.1)" />
+        </svg>
+        <svg class="plane-silhouette plane-2" width="180" height="50" viewBox="0 0 180 50">
+            <path d="M15,25 L165,25 L175,20 L180,15 L175,30 L165,25 L145,30 L125,25 L105,30 L85,25 L65,30 L45,25 L25,30 L15,25 Z" fill="rgba(255,255,255,0.1)" />
+        </svg>
+        <svg class="plane-silhouette plane-3" width="220" height="70" viewBox="0 0 220 70">
+            <path d="M25,35 L195,35 L205,30 L210,25 L215,30 L205,40 L195,35 L175,40 L155,35 L135,40 L115,35 L95,40 L75,35 L55,40 L35,35 L25,35 Z" fill="rgba(255,255,255,0.1)" />
+        </svg>
+    </div>
+
+    <div class="reports-container">
+        <!-- Header -->
+        <div class="reports-header">
+            <div class="logo-section">
+                <div class="logo-gaca">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                    <h1 class="logo-rushd">رُشد</h1>
+                </div>
+            </div>
+            <h2 class="page-title">التقارير والإحصائيات</h2>
+            <p class="page-subtitle">مراقبة الأداء والتأثير البيئي لوحدات الطاقة المساعدة</p>
+            
+            <!-- Date Filters -->
+            <div class="date-filters">
+                <button class="date-filter-btn active" onclick="filterData('today')">اليوم</button>
+                <button class="date-filter-btn" onclick="filterData('week')">هذا الأسبوع</button>
+                <button class="date-filter-btn" onclick="filterData('month')">هذا الشهر</button>
+                <button class="date-filter-btn" onclick="filterData('quarter')">هذا الربع</button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon emissions">
+                    <i class="fas fa-smog"></i>
+                </div>
+                <div class="stat-value" id="totalEmissions">847.2</div>
+                <div class="stat-label">إجمالي انبعاثات APU (كجم CO₂)</div>
+                <div class="stat-change negative">↑ 5.2% من الأسبوع الماضي</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon savings">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="stat-value" id="savedEmissions">312.8</div>
+                <div class="stat-label">الانبعاثات المُوفرة (كجم CO₂)</div>
+                <div class="stat-change positive">↓ 12.3% تحسن</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon alerts">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-value" id="urgentAlerts">23</div>
+                <div class="stat-label">التنبيهات العاجلة اليوم</div>
+                <div class="stat-change negative">↑ 8 تنبيهات</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon efficiency">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <div class="stat-value" id="gpuUtilization">78%</div>
+                <div class="stat-label">معدل استخدام الطاقة الأرضية</div>
+                <div class="stat-change positive">↑ 15.7% تحسن</div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="charts-grid">
+                <!-- Line Chart - APU vs GPU Comparison -->
+                <div class="chart-container">
+                    <h3 class="chart-title">مقارنة استهلاك الطاقة: APU مقابل GPU</h3>
+                    <canvas id="comparisonChart" class="chart-canvas"></canvas>
+                </div>
+
+                <!-- Pie Chart - Compliance Rate -->
+                <div class="chart-container">
+                    <h3 class="chart-title">معدل الالتزام بالحدود الزمنية</h3>
+                    <canvas id="complianceChart" class="chart-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Performance Indicators -->
+        <div class="kpi-section">
+            <h3 class="kpi-title">مؤشرات الأداء الرئيسية</h3>
+            <div class="kpi-grid">
+                <div class="kpi-item">
+                    <div class="kpi-value" id="avgApuTime">18.5</div>
+                    <div class="kpi-label">متوسط وقت تشغيل APU (دقيقة/رحلة)</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-value" id="dailyAlerts">2.3</div>
+                    <div class="kpi-label">معدل التنبيهات العاجلة (يومياً)</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-value" id="gpuUsage">78%</div>
+                    <div class="kpi-label">نسبة استخدام الطاقة الأرضية</div>
+                </div>
+                <div class="kpi-item">
+                    <div class="kpi-value" id="fuelSavings">425</div>
+                    <div class="kpi-label">توفير الوقود (لتر/يوم)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Section -->
+        <div class="download-section">
+            <h3 class="download-title">تحميل التقارير</h3>
+            <div class="download-buttons">
+                <button class="download-btn pdf" onclick="downloadReport('pdf')">
+                    <i class="fas fa-file-pdf"></i>
+                    تحميل PDF
+                </button>
+                <button class="download-btn excel" onclick="downloadReport('excel')">
+                    <i class="fas fa-file-excel"></i>
+                    تحميل Excel
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
