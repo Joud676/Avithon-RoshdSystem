@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نظام رُشد - الإعدادات</title>
+  <link rel="stylesheet" href="../CSS/settings.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../Media/roshdLogo-Blue-Vertical.png">
+
+</head>
+<body>
+    <div class="container">
+  <div class="logo-wrapper">
+    <img src="../Media/roshdLogo-Blue-Vertical.png" alt="Roshd Logo">
+  </div>
+    <h1>إعدادات النظام</h1>
+
+    <section class="settings-section">
+      <h2><i class="fas fa-gauge-high" style="color:#6d28d9; margin-left:10px;"></i> الحد الأقصى لتشغيل APU</h2>
+      <label for="apuMax">المدة بالدقائق:</label>
+      <input type="number" id="apuMax" min="1" max="300" value="30">
+    </section>
+
+    <section class="settings-section">
+      <h2><i class="fas fa-bell" style="color:#6d28d9; margin-left:10px;"></i> أوقات التنبيه المسبق</h2>
+      <label><input type="checkbox" id="alert5"> تنبيه قبل 5 دقائق</label><br>
+      <label><input type="checkbox" id="alert10"> تنبيه قبل 10 دقائق</label><br>
+      <label><input type="checkbox" id="alert15"> تنبيه قبل 15 دقيقة</label>
+    </section>
+
+    <section class="settings-section">
+      <h2><i class="fas fa-users" style="color:#6d28d9; margin-left:10px;"></i> إدارة المستخدمين</h2>
+      <div id="users"></div>
+      <button onclick="addUser()"><i class="fas fa-user-plus" style="margin-left: 6px;"></i>إضافة مستخدم</button>
+    </section>
+
+    <section class="settings-section">
+      <h2><i class="fas fa-database" style="color:#6d28d9; margin-left:10px;"></i> تكامل البيانات مع جداول الرحلات</h2>
+      <div id="dataStatus">
+        <p><i class="fas fa-link" style="color:green; margin-left:6px;"></i> حالة الربط: <strong style="color: green;">مربوط</strong></p>
+        <p><i class="fas fa-plane-departure" style="margin-left:6px;"></i> اسم المطار: <span id="airportName"></span></p>
+        <p><i class="fas fa-list-ol" style="margin-left:6px;"></i> عدد الرحلات: <span id="flightCount"></span></p>
+        <p><i class="fas fa-plane" style="margin-left:6px;"></i> أنواع الطائرات: <span id="aircraftTypes"></span></p>
+        <p><i class="fas fa-building" style="margin-left:6px;"></i> شركات الطيران:</p>
+        <ul id="airlinesList"></ul>
+      </div>
+    </section>
+
+    <button onclick="saveSettings()"><i class="fas fa-save" style="margin-left: 6px;"></i>حفظ الإعدادات</button>
+  </div>
+
+  <div id="userModal" style="display: none;">
+    <div class="modal-content">
+      <h3 id="modalTitle"><i class="fas fa-user" style="margin-left:8px;"></i>إضافة مستخدم</h3>
+      <label>الاسم:</label>
+      <input type="text" id="userName">
+      <label>البريد الإلكتروني:</label>
+      <input type="email" id="userEmail">
+      <label>الدور:</label>
+      <div class="select-wrapper">
+        <select id="userRole">
+          <option value="admin">مدير النظام</option>
+          <option value="operator">مشغل رحلات</option>
+          <option value="technician">فني صيانة</option>
+        </select>
+      </div>
+      <div style="display: flex; justify-content: space-between;">
+        <button onclick="saveUser()"><i class="fas fa-check-circle" style="margin-left:6px;"></i>حفظ المستخدم</button>
+        <button onclick="closeModal()"><i class="fas fa-times-circle" style="margin-left:6px;"></i>إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="deleteModal" class="custom-modal">
+    <div class="custom-modal-content">
+      <p><i class="fas fa-exclamation-triangle" style="color:#dc2626; margin-left:6px;"></i>هل أنت متأكدة من حذف هذا المستخدم؟</p>
+      <div class="custom-modal-actions">
+        <button id="confirmDelete" class="btn danger"><i class="fas fa-trash-alt" style="margin-left:6px;"></i>حذف</button>
+        <button id="cancelDelete" class="btn cancel"><i class="fas fa-times" style="margin-left:6px;"></i>إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="customAlert" class="custom-alert"></div>
+
+  <script src="../JS/settings.js"></script>
+</body>
+</html>
