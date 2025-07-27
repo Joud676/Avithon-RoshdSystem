@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل الطائرة - Flight Detail</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../CSS/flight-detail.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="flight-title">
+                <div class="flight-icon">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <div class="flight-info">
+                    <h1>الرحلة SV2156</h1>
+                    <p class="flight-subtitle">Airbus A330-300 • الخطوط السعودية</p>
+                </div>
+            </div>
+            
+            <div class="flight-basic-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-plane-departure"></i>
+                    </div>
+                    <div>
+                        <div class="status-label">نوع الطائرة</div>
+                        <div class="status-value">Airbus A330-300</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div>
+                        <div class="status-label">سنة الصنع</div>
+                        <div class="status-value">2019</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-door-open"></i>
+                    </div>
+                    <div>
+                        <div class="status-label">البوابة</div>
+                        <div class="status-value">D1</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <div class="status-label">الوجهة</div>
+                        <div class="status-value">دبي (DXB)</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <div class="status-label">وقت المغادرة</div>
+                        <div class="status-value">17:50</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    معلومات الـ APU
+                </div>
+                
+                <div class="status-grid">
+                    <div class="status-item status-online">
+                        <div class="status-label">الحالة الحالية</div>
+                        <div class="status-value">قيد التشغيل</div>
+                    </div>
+                    
+                    <div class="status-item">
+                        <div class="status-label">مدة التشغيل اليوم</div>
+                        <div class="status-value">3.2 ساعة</div> 
+                    </div>
+                    
+                    <div class="status-item">
+                        <div class="status-label">معدل استهلاك الوقود</div>
+                        <div class="status-value">210 كجم/ساعة</div>
+                    </div>
+                    
+                    <div class="status-item status-warning">
+                        <div class="status-label">درجة الحرارة</div>
+                        <div class="status-value">650°C</div>
+                    </div>
+                    
+                    <div class="status-item status-online">
+                        <div class="status-label">مستوى الزيت</div>
+                        <div class="status-value">85%</div>
+                    </div>
+                    
+                    <div class="status-item">
+                        <div class="status-label">انبعاثات CO₂</div>
+                        <div class="status-value">663.6 كجم/ساعة</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    حالة الطاقة الأرضية
+                </div>
+                
+                <div class="power-status">
+                    <div class="power-info">
+                        <div class="power-indicator"></div>
+                        <div>
+                            <div class="status-label">GPU (كهربائي)</div>
+                            <div class="status-value">غير متصل</div>
+                        </div>
+                    </div>
+                    <div class="status-value" style="color: #27ae60;">4 كجم CO₂/ساعة</div>
+                </div>
+                
+                <div class="power-status">
+                    <div class="power-info">
+                        <div class="power-indicator"></div>
+                        <div>
+                            <div class="status-label">PCA (تكييف)</div>
+                            <div class="status-value">غير متصل</div>
+                        </div>
+                    </div>
+                    <div class="status-value" style="color: #27ae60;">19 كجم CO₂/ساعة</div>
+                </div>
+                
+                <div class="power-status" style="border: 2px solid #27ae60; background: rgba(39, 174, 96, 0.1);">
+                    <div class="power-info">
+                        <div class="power-indicator"></div>
+                        <div>
+                            <div class="status-label">إجمالي الطاقة الأرضية</div>
+                            <div class="status-value">متصل</div>
+                        </div>
+                    </div>
+                    <div class="status-value" style="color: #27ae60; font-size: 20px;">23 كجم CO₂/ساعة</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section charts-section">
+            <div>
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    استهلاك الوقود (24 ساعة)
+                </div>
+                <div class="chart-container">
+                    <canvas id="fuelChart"></canvas>
+                </div>
+            </div>
+            
+            <div>
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-thermometer-half"></i>
+                    </div>
+                    منحنى درجة الحرارة
+                </div>
+                <div class="chart-container">
+                    <canvas id="temperatureChart"></canvas>
+                </div>
+            </div>
+            
+            <div>
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    مقارنة الانبعاثات
+                </div>
+                <div class="chart-container">
+                    <canvas id="emissionsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="section alerts-section">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                التنبيهات المرتبطة
+            </div>
+            
+            <div class="alert-item">
+                <div class="alert-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600; color: #2c3e50;">تجاوز الوقت المسموح</div>
+                    <div style="color: #7f8c8d; font-size: 14px;">تم تشغيل الـ APU لأكثر من 3 ساعات متواصلة</div>
+                </div>
+                <div style="color: #e74c3c; font-size: 12px;">منذ 15 دقيقة</div>
+            </div>
+            
+            <div class="alert-item" style="background: rgba(241, 196, 15, 0.1); border-right-color: #f1c40f;">
+                <div class="alert-icon" style="background: #f1c40f;">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600; color: #2c3e50;">تشغيل مزدوج</div>
+                    <div style="color: #7f8c8d; font-size: 14px;">الـ APU والطاقة الأرضية يعملان معاً</div>
+                </div>
+                <div style="color: #f1c40f; font-size: 12px;">نشط الآن</div>
+            </div>
+        </div>
+        <div class="section calculator-section">
+            <div class="section-title">
+                <div class="section-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                حاسبة الانبعاثات
+            </div>
+            
+            <div class="calculator-form">
+                <div class="input-group">
+                    <label>نوع الطائرة</label>
+                    <select id="aircraftType">
+                        <option value="a320">Airbus A320</option>
+                        <option value="b777">Boeing 777-300ER</option>
+                        <option value="a330">Airbus A330-300</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>مدة التشغيل (دقائق)</label>
+                    <input type="number" id="operationTime" placeholder="180" value="180">
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateEmissions()">
+                    <i class="fas fa-calculator"></i>
+                    احسب الانبعاثات
+                </button>
+            </div>
+            
+            <div class="results-grid" id="calculationResults" style="display: none;">
+                <div class="result-card apu">
+                    <div class="result-title">انبعاثات الـ APU</div>
+                    <div class="result-value" id="apuEmissions">1194.48</div>
+                    <div class="result-unit">كجم CO₂</div>
+                </div>
+                
+                <div class="result-card ground">
+                    <div class="result-title">الطاقة الأرضية فقط</div>
+                    <div class="result-value" id="groundEmissions">69</div>
+                    <div class="result-unit">كجم CO₂</div>
+                </div>
+                
+                <div class="result-card savings">
+                    <div class="result-title">الوفورات</div>
+                    <div class="result-value" id="savingsAmount">1125.48</div>
+                    <div class="result-unit">كجم CO₂ موفرة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../JS/flight-detail.js"></script>
+</body>
+</html>
