@@ -1,3 +1,9 @@
+/* ====================================
+   رُشد - نظام مراقبة وحدات الطاقة المساعدة
+   Rushd APU Monitoring System - Simplified Styles
+   ==================================== */
+
+/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -152,10 +158,12 @@ body {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
     border-radius: 24px;
-    padding: 60px 50px;
+    padding: 45px 40px;
+    /* قللنا من 60px 50px */
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
     width: 100%;
-    max-width: 480px;
+    max-width: 420px;
+    /* قللنا من 480px */
     position: relative;
     z-index: 10;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -178,21 +186,25 @@ body {
 /* Header */
 .login-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
+    /* قللنا من 40px */
 }
 
 .logo-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
-    margin-bottom: 30px;
+    gap: 18px;
+    /* قللنا من 20px */
+    margin-bottom: 25px;
+    /* قللنا من 30px */
     flex-wrap: wrap;
 }
 
 .logo-gaca {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    /* قللنا من 64px */
+    height: 56px;
     background: linear-gradient(135deg, #4561db, #6c7ae0);
     border-radius: 16px;
     display: flex;
@@ -220,7 +232,8 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 48px;
+    font-size: 42px;
+    /* قللنا من 48px */
     font-weight: 700;
     line-height: 1.2;
 }
@@ -234,20 +247,25 @@ body {
 
 .welcome-text {
     color: #333;
-    font-size: 24px;
+    font-size: 22px;
+    /* قللنا من 24px */
     font-weight: 600;
-    margin: 20px 0 10px;
+    margin: 18px 0 8px;
+    /* قللنا المسافات */
 }
 
 .sub-text {
     color: #666;
-    font-size: 16px;
-    margin-bottom: 40px;
+    font-size: 15px;
+    /* قللنا من 16px */
+    margin-bottom: 35px;
+    /* قللنا من 40px */
 }
 
 /* Form Styles */
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 22px;
+    /* قللنا من 25px */
 }
 
 .form-group label {
@@ -659,5 +677,24 @@ body {
     .particles,
     .plane-silhouette {
         display: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background: white !important;
+    }
+
+    .bg-animation,
+    .particles,
+    .plane-silhouette {
+        display: none !important;
+    }
+
+    .login-container {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        background: white !important;
     }
 }
