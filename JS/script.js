@@ -36,7 +36,7 @@ function handleLogin(event) {
     submitBtn.disabled = true;
 
     setTimeout(() => {
-        window.location.href = 'HTML/dashboard.html';
+        window.location.href = './HTML/dashboard.html';
     }, 1500);
 }
 
