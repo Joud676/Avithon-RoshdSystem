@@ -309,62 +309,6 @@
                     "startTime": null
                 }
             }
-        },
-        {
-            "id": "FL007",
-            "flightNumber": "F31508",
-            "airline": "F3",
-            "aircraftType": "A320-ceo",
-            "registration": "HZ-FA22",
-            "gate": "G3",
-            "status": "على الأرض",
-            "arrival": "2025-01-27T12:45:00Z",
-            "departure": "2025-01-27T15:30:00Z",
-            "passengers": 162,
-            "apu": {
-                "status": "مُشغل",
-                "startTime": "2025-01-27T12:50:00Z",
-                "duration": 42
-            },
-            "groundPower": {
-                "gpu": {
-                    "connected": false,
-                    "type": null,
-                    "startTime": null
-                },
-                "pca": {
-                    "connected": false,
-                    "startTime": null
-                }
-            }
-        },
-        {
-            "id": "FL008",
-            "flightNumber": "SV3456",
-            "airline": "SV",
-            "aircraftType": "B777-300ER",
-            "registration": "HZ-AK25",
-            "gate": "H1",
-            "status": "على الأرض",
-            "arrival": "2025-01-27T13:30:00Z",
-            "departure": "2025-01-27T18:20:00Z",
-            "passengers": 389,
-            "apu": {
-                "status": "مُشغل",
-                "startTime": "2025-01-27T13:35:00Z",
-                "duration": 22
-            },
-            "groundPower": {
-                "gpu": {
-                    "connected": true,
-                    "type": "diesel",
-                    "startTime": "2025-01-27T13:45:00Z"
-                },
-                "pca": {
-                    "connected": true,
-                    "startTime": "2025-01-27T13:50:00Z"
-                }
-            }
         }
     ],
     "alerts": [
