@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <title>نظام رُشد - لوحة المراقبة</title>
     <link rel="stylesheet" href="../CSS/dashboard.css">
     <link rel="icon" type="image/png" href="../Media/roshdLogo-Blue-Vertical.png">
@@ -24,15 +24,15 @@
             <nav class="nav-menu">
                 <ul class="nav-list">
                     <li class="nav-item active">
-                        <a href="#dashboard" class="nav-link">
+                        <a href="dashboard.html" class="nav-link">
                             <span class="nav-icon">📊</span>
                             <span class="nav-text">لوحة المراقبة</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="flight-detail.html" class="nav-link">
-                            <span class="nav-icon">✈️</span>
-                            <span class="nav-text">تفاصيل الطائرة</span>
+                        <a href="employee.html" class="nav-link">
+                            <span class="nav-icon">🕒</span>
+                            <span class="nav-text">جدولة الموظفين</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -154,14 +154,50 @@
 
                         </div>
                         <div class="info-panel">
-                            <h4>معدلات الاستهلاك (من مصادر رسمية):</h4>
+                            <h4>معدلات الاستهلاك والانبعاثات (محدّثة - من الحسابات الرسمية):</h4>
                             <ul>
-                                <li>A320: 126 كغ وقود/ساعة → 398.16 كغ CO₂/ساعة</li>
-                                <li>B777-300ER: 312 كغ وقود/ساعة → 985.92 كغ CO₂/ساعة</li>
-                                <li>A330-300: 210 كغ وقود/ساعة → 663.6 كغ CO₂/ساعة</li>
-                                <li>GPU كهربائي: 4 كغ CO₂/ساعة</li>
-                                <li>PCA: 16.086 كغ CO₂/ساعة (7 L/hr × 6.0 kg/L × 2.681)</li>
+                                <li><strong>A320 (neo + ceo):</strong> 126 كغ وقود/ساعة → <span
+                                        style="color: #dc3545;">6.64 كغ CO₂/دقيقة</span></li>
+                                <li><strong>B777-300ER:</strong> 312 كغ وقود/ساعة → <span style="color: #dc3545;">16.43
+                                        كغ CO₂/دقيقة</span></li>
+                                <li><strong>A330-300:</strong> 210 كغ وقود/ساعة → <span style="color: #dc3545;">11.06 كغ
+                                        CO₂/دقيقة</span></li>
+                                <li><strong>GPU كهربائي:</strong> <span style="color: #28a745;">4 كغ CO₂/ساعة</span>
+                                </li>
+                                <li><strong>PCA:</strong> <span style="color: #28a745;">16.086 كغ CO₂/ساعة</span></li>
+                                <li><strong>طاقة أرضية مجمعة (كهربائية):</strong> <span style="color: #28a745;">20.086
+                                        كغ CO₂/ساعة</span></li>
+                                <li><strong>طاقة أرضية مجمعة (ديزل):</strong> <span style="color: #f39c12;">57.086 كغ
+                                        CO₂/ساعة</span></li>
+                                <li><strong>طاقة أرضية مجمعة (مختلطة):</strong> <span style="color: #17a2b8;">38.586 كغ
+                                        CO₂/ساعة</span></li>
                             </ul>
+
+                            <h4 style="margin-top: 15px; color: #264285;">💡 التوفير المتوقع حسب نظام رُشد:</h4>
+                            <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 8px;">
+                                <div><strong>A320:</strong> <span style="color: #28a745;">140.3 كغ CO₂</span> توفير/رحلة
+                                    (مختلط)</div>
+                                <div><strong>B777-300ER:</strong> <span style="color: #28a745;">385.0 كغ CO₂</span>
+                                    توفير/رحلة (مختلط)</div>
+                                <div><strong>A330-300:</strong> <span style="color: #28a745;">250.8 كغ CO₂</span>
+                                    توفير/رحلة (مختلط)</div>
+                                <div style="margin-top: 8px; border-top: 1px solid #dee2e6; padding-top: 8px;">
+                                    <strong>المتوسط المرجح:</strong> <span
+                                        style="color: #264285; font-size: 1.1em;">194.9 كغ CO₂</span> توفير/رحلة
+                                </div>
+                            </div>
+
+                            <h4 style="margin-top: 15px; color: #264285;">🌍 الأثر البيئي السنوي:</h4>
+                            <div style="background: #e8f5e8; padding: 10px; border-radius: 5px; margin-top: 8px;">
+                                <div><strong>التوفير السنوي:</strong> <span
+                                        style="color: #28a745; font-weight: bold;">24,893 طن CO₂</span></div>
+                                <div><strong>معادل إزالة:</strong> <span style="color: #28a745;">5,390 سيارة</span> من
+                                    الطرق</div>
+                                <div><strong>معادل زراعة:</strong> <span style="color: #28a745;">1.1 مليون شجرة</span>
+                                </div>
+                                <div><strong>تقليل الانبعاثات:</strong> <span style="color: #28a745;">55.2%</span> من
+                                    انبعاثات APU</div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -12,59 +12,7 @@ async function fetchDashboardData() {
     try {
         const response = await fetch('../JSON/data.json').catch(() => ({ ok: false }));
 
-        if (!response.ok) {
-            dashboardData = {
-                "aircraftTypes": {
-                    "A320-neo": { "apuConsumption": 126 },
-                    "A320-ceo": { "apuConsumption": 126 },
-                    "B777-300ER": { "apuConsumption": 312 },
-                    "A330-300": { "apuConsumption": 210 }
-                },
-                "emissionFactors": {
-                    "apu": { "co2Factor": 3.16 },
-                    "groundPower": {
-                        "electricGPU": { "co2Emissions": 4.0 },
-                        "dieselGPU": { "fuelConsumption": 18, "fuelDensity": 15.3, "emissionFactor": 2.681 },
-                        "pca": { "fuelConsumption": 7, "fuelDensity": 6.0, "emissionFactor": 2.681 }
-                    }
-                },
-                "flights": [
-                    {
-                        "flightNumber": "SV1234", "aircraftType": "B777-300ER", "gate": "A1",
-                        "apu": { "status": "مُشغل", "duration": 40 },
-                        "groundPower": { "gpu": { "connected": true, "type": "electric" }, "pca": { "connected": true } }
-                    },
-                    {
-                        "flightNumber": "XY419", "aircraftType": "A320-neo", "gate": "B3",
-                        "apu": { "status": "متوقف", "duration": 0 },
-                        "groundPower": { "gpu": { "connected": true, "type": "electric" }, "pca": { "connected": true } }
-                    },
-                    {
-                        "flightNumber": "F31205", "aircraftType": "A320-neo", "gate": "C2",
-                        "apu": { "status": "مُشغل", "duration": 115 },
-                        "groundPower": { "gpu": { "connected": false }, "pca": { "connected": false } }
-                    },
-                    {
-                        "flightNumber": "SV2156", "aircraftType": "A330-300", "gate": "D1",
-                        "apu": { "status": "مُشغل", "duration": 190 },
-                        "groundPower": { "gpu": { "connected": false }, "pca": { "connected": false } }
-                    },
-                    {
-                        "flightNumber": "XY1847", "aircraftType": "A320-ceo", "gate": "A5",
-                        "apu": { "status": "مُشغل", "duration": 65 },
-                        "groundPower": { "gpu": { "connected": true, "type": "diesel" }, "pca": { "connected": false } }
-                    }
-                ],
-                "alerts": [
-                    { "flightNumber": "SV2156", "priority": "حرج", "message": "تشغل APU لأكثر من 3 ساعات", "timestamp": "2025-01-27T14:20:00Z" },
-                    { "flightNumber": "F31205", "priority": "تحذير", "message": "تشغل APU بدون طاقة أرضية", "timestamp": "2025-01-27T14:05:00Z" },
-                    { "flightNumber": "XY1847", "priority": "تنبيه", "message": "تقترب من حد الساعة", "timestamp": "2025-01-27T14:25:00Z" }
-                ]
-            };
-        } else {
-            dashboardData = await response.json();
-        }
-
+        dashboardData = await response.json();
         return dashboardData;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -80,27 +28,25 @@ function calculateAPUEmissions(aircraftType, durationMinutes) {
 
     if (!aircraft || !emissionFactors) return { fuel: 0, co2: 0 };
 
-    const hours = durationMinutes / 60;
-    const fuelConsumed = aircraft.apuConsumption * hours;
-    const co2Emitted = fuelConsumed * emissionFactors.apu.co2Factor;
+    const co2Emitted = aircraft.co2PerMinute * durationMinutes;
+    const fuelConsumed = co2Emitted / emissionFactors.apu.co2Factor;
 
     return {
         fuel: fuelConsumed,
         co2: co2Emitted
     };
 }
-
 function calculateGroundPowerEmissions(groundPower, durationMinutes) {
     if (!dashboardData) return 0;
 
     const emissionFactors = dashboardData.emissionFactors.groundPower;
-    const hours = durationMinutes / 60;
     let totalCO2 = 0;
 
     if (groundPower.gpu && groundPower.gpu.connected) {
         if (groundPower.gpu.type === 'electric') {
-            totalCO2 += emissionFactors.electricGPU.co2Emissions * hours;
+            totalCO2 += (4.0 / 60) * durationMinutes;
         } else if (groundPower.gpu.type === 'diesel') {
+            const hours = durationMinutes / 60;
             const fuelLiters = emissionFactors.dieselGPU.fuelConsumption * hours;
             const fuelKg = fuelLiters * emissionFactors.dieselGPU.fuelDensity;
             totalCO2 += fuelKg * emissionFactors.dieselGPU.emissionFactor;
@@ -108,9 +54,7 @@ function calculateGroundPowerEmissions(groundPower, durationMinutes) {
     }
 
     if (groundPower.pca && groundPower.pca.connected) {
-        const fuelLiters = emissionFactors.pca.fuelConsumption * hours;
-        const fuelKg = fuelLiters * emissionFactors.pca.fuelDensity;
-        totalCO2 += fuelKg * emissionFactors.pca.emissionFactor;
+        totalCO2 += emissionFactors.pca.co2PerMinute * durationMinutes;
     }
 
     return totalCO2;
@@ -123,6 +67,7 @@ function calculateDailyStats() {
     let totalFuelConsumed = 0;
     let totalCO2Emitted = 0;
     let totalGroundCO2 = 0;
+    let potentialSavings = 0;
 
     const stats = {
         totalFlights: flights.length,
@@ -139,24 +84,28 @@ function calculateDailyStats() {
         totalFuelConsumed += apuEmissions.fuel;
         totalCO2Emitted += apuEmissions.co2;
         totalGroundCO2 += groundEmissions;
+
+        const flightSavings = calculateRushdSavings(flight.aircraftType, 'mixed');
+        potentialSavings += flightSavings;
     });
 
-    const potentialGroundCO2 = flights.reduce((total, flight) => {
-        const optimalGroundPower = {
-            gpu: { connected: true, type: 'electric' },
-            pca: { connected: true }
-        };
-        return total + calculateGroundPowerEmissions(optimalGroundPower, flight.apu.duration);
+    const actualSavings = flights.reduce((total, flight) => {
+        const hasGroundPower = (flight.groundPower.gpu && flight.groundPower.gpu.connected) ||
+            (flight.groundPower.pca && flight.groundPower.pca.connected);
+        if (hasGroundPower) {
+            return total + calculateRushdSavings(flight.aircraftType, 'mixed');
+        }
+        return total;
     }, 0);
 
     stats.totalFuelConsumed = totalFuelConsumed;
     stats.totalCO2Emitted = totalCO2Emitted;
-    stats.co2Saved = Math.max(0, totalCO2Emitted - potentialGroundCO2);
-    stats.efficiencyRate = Math.min(100, Math.max(0, (stats.co2Saved / totalCO2Emitted) * 100));
+    stats.co2Saved = actualSavings;
+    stats.potentialSavings = potentialSavings;
+    stats.efficiencyRate = Math.min(100, Math.max(0, (actualSavings / potentialSavings) * 100));
 
     return stats;
 }
-
 function connectGPU(flightNumber) {
     const flight = dashboardData.flights.find(f => f.flightNumber === flightNumber);
     if (flight) {
@@ -205,6 +154,277 @@ function sendAlert(flightNumber) {
     showNotification(`تم إرسال تنبيه للطاقم الأرضي - الطائرة ${flightNumber}`, 'warning');
 }
 
+
+function calculateRushdSavings(aircraftType, groundPowerType = 'mixed') {
+    if (!dashboardData || !dashboardData.savingsData) return 0;
+
+    const savings = dashboardData.savingsData.perFlight;
+    const aircraftKey = aircraftType.includes('A320') ? 'A320' : aircraftType;
+
+    if (savings[aircraftKey] && savings[aircraftKey][groundPowerType]) {
+        return savings[aircraftKey][groundPowerType];
+    }
+
+    return 0;
+}
+
+function calculateOptimalScenario(aircraftType, currentAPUDuration) {
+    if (!dashboardData) return null;
+
+    const currentEmissions = calculateAPUEmissions(aircraftType, currentAPUDuration);
+
+    const optimalAPUDuration = 15;
+    const groundPowerDuration = 40;
+
+    const optimalAPUEmissions = calculateAPUEmissions(aircraftType, optimalAPUDuration);
+    const groundPowerEmissions = calculateGroundPowerEmissions({
+        gpu: { connected: true, type: 'electric' },
+        pca: { connected: true }
+    }, groundPowerDuration);
+
+    const optimalTotalEmissions = optimalAPUEmissions.co2 + groundPowerEmissions;
+    const savings = currentEmissions.co2 - optimalTotalEmissions;
+    const efficiencyImprovement = (savings / currentEmissions.co2) * 100;
+
+    return {
+        current: {
+            apuDuration: currentAPUDuration,
+            emissions: currentEmissions.co2,
+            fuel: currentEmissions.fuel
+        },
+        optimal: {
+            apuDuration: optimalAPUDuration,
+            groundPowerDuration: groundPowerDuration,
+            apuEmissions: optimalAPUEmissions.co2,
+            groundPowerEmissions: groundPowerEmissions,
+            totalEmissions: optimalTotalEmissions,
+            totalFuel: optimalAPUEmissions.fuel
+        },
+        savings: {
+            co2: savings,
+            fuel: currentEmissions.fuel - optimalAPUEmissions.fuel,
+            percentage: efficiencyImprovement
+        }
+    };
+}
+
+function displayRushdOverallStats() {
+    if (!dashboardData || !dashboardData.savingsData) return;
+
+    const daily = dashboardData.savingsData.daily;
+    const annual = dashboardData.savingsData.annual;
+
+    console.log('نظام رُشد - الإحصائيات الشاملة:');
+    console.log(`التوفير اليومي (كهربائي): ${(daily.electric / 1000).toFixed(1)} طن CO₂`);
+    console.log(`التوفير اليومي (مختلط): ${(daily.mixed / 1000).toFixed(1)} طن CO₂`);
+    console.log(`التوفير السنوي (مختلط): ${(annual.mixed / 1000000).toFixed(1)} ألف طن CO₂`);
+    console.log(`معادل إزالة ${Math.round(annual.mixed / 4600)} سيارة من الطرق سنوياً`);
+}
+
+
+function displayComprehensiveRushdStats() {
+    if (!dashboardData || !dashboardData.savingsData) return;
+
+    const savings = dashboardData.savingsData;
+
+}
+
+function createStatsContainer() {
+    const container = document.createElement('div');
+    container.id = 'comprehensiveStats';
+    container.className = 'comprehensive-stats-container';
+
+    const mainContainer = document.querySelector('.main-container');
+    if (mainContainer) {
+        mainContainer.appendChild(container);
+    }
+
+    return container;
+}
+
+function addComprehensiveStatsCSS() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .comprehensive-stats-container {
+            margin: 20px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+        }
+
+        .comprehensive-stats {
+            max-width: 100%;
+        }
+
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #264285;
+        }
+
+        .stats-header h3 {
+            color: #264285;
+            margin: 0;
+        }
+
+        .live-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            animation: pulse 2s infinite;
+        }
+
+        .stats-grid-comprehensive {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-group {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #264285;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-group h4 {
+            margin: 0 0 12px 0;
+            color: #264285;
+            font-size: 1.1em;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+
+        .stat-row.highlight {
+            background: #fff3cd;
+            padding: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #ffc107;
+        }
+
+        .scenario-bars {
+            margin-top: 10px;
+        }
+
+        .scenario-bar {
+            margin: 10px 0;
+        }
+
+        .scenario-label {
+            display: inline-block;
+            width: 80px;
+            font-weight: bold;
+        }
+
+        .bar-container {
+            display: inline-block;
+            width: calc(100% - 100px);
+            background: #e9ecef;
+            border-radius: 4px;
+            height: 25px;
+            position: relative;
+            margin-left: 10px;
+        }
+
+        .bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .electric .bar { background: #28a745; }
+        .mixed .bar { background: #17a2b8; }
+        .diesel .bar { background: #ffc107; }
+
+        .bar-value {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+
+        .aircraft-stats {
+            display: grid;
+            gap: 10px;
+        }
+
+        .aircraft-stat {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #264285;
+        }
+
+        .aircraft-name {
+            font-weight: bold;
+            color: #264285;
+        }
+
+        .aircraft-savings {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .aircraft-daily {
+            color: #17a2b8;
+            font-weight: bold;
+        }
+
+        .insights-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insights-list li {
+            background: white;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #17a2b8;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid-comprehensive {
+                grid-template-columns: 1fr;
+            }
+            
+            .aircraft-stat {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    addComprehensiveStatsCSS();
+
+    setTimeout(() => {
+        if (dashboardData) {
+            displayComprehensiveRushdStats();
+        }
+    }, 1000);
+});
 function emergencyShutdown(flightNumber) {
     const flight = dashboardData.flights.find(f => f.flightNumber === flightNumber);
     if (flight) {
@@ -252,7 +472,6 @@ function updateCurrentTime() {
 
     updateElement('currentTime', timeString);
 }
-
 function updateKPIs() {
     if (!dashboardData) return;
 
@@ -266,14 +485,8 @@ function updateKPIs() {
     updateElement('activeAlerts', dashboardData.alerts ? dashboardData.alerts.length : 0);
     updateElement('efficiencyRate', Math.round(stats.efficiencyRate) + '%');
 
-    updateElement('todayEmissions', Math.round(stats.totalCO2Emitted).toLocaleString());
-    updateElement('fuelSavedTotal', Math.round(stats.co2Saved / 3.16).toLocaleString());
-
-    updateElement('activeCount', stats.totalFlights);
-    updateElement('alertCount', dashboardData.alerts ? dashboardData.alerts.length : 0);
-    updateElement('alertBadge', (dashboardData.alerts ? dashboardData.alerts.length : 0) + ' تنبيهات');
+    displayRushdOverallStats();
 }
-
 function updateElement(id, value) {
     const element = document.getElementById(id);
     if (element) {
@@ -310,8 +523,11 @@ function createAircraftCard(flight) {
     card.innerHTML = `
         <div class="aircraft-header">
             <div class="aircraft-id">${flight.flightNumber}</div>
+            <div class="badge">
             <div class="status-badge ${getStatusClass(flight.apu.status)}">${flight.apu.status}</div>
-        </div>
+            <button class="status-badge details" onclick="window.location.href='../HTML/flight-detail.html'">تفاصيل الرحلة</button>
+                </div>
+            </div>
         
         <div class="aircraft-details">
             <div class="detail-item">
@@ -470,19 +686,25 @@ function calculateEmissions(runtime, resultsContainer) {
     const aircraftSelect = document.getElementById('aircraftSelect');
     const selectedAircraft = aircraftSelect ? aircraftSelect.value : 'A320-neo';
 
+    // السيناريو الحالي (APU فقط)
     const apuEmissions = calculateAPUEmissions(selectedAircraft, runtime);
 
-    const groundPower = {
+    // السيناريو الأمثل (15 دقيقة APU + طاقة أرضية)
+    const optimalAPUEmissions = calculateAPUEmissions(selectedAircraft, 15);
+    const groundEmissions = calculateGroundPowerEmissions({
         gpu: { connected: true, type: 'electric' },
         pca: { connected: true }
-    };
-    const groundEmissions = calculateGroundPowerEmissions(groundPower, runtime);
+    }, runtime);
 
-    const co2Savings = apuEmissions.co2 - groundEmissions;
+    const totalOptimalEmissions = optimalAPUEmissions.co2 + groundEmissions;
+    const co2Savings = apuEmissions.co2 - totalOptimalEmissions;
     const efficiencyPercent = Math.round((co2Savings / apuEmissions.co2) * 100);
 
     const aircraftData = dashboardData.aircraftTypes[selectedAircraft];
     const aircraftName = aircraftData ? aircraftData.model || selectedAircraft : selectedAircraft;
+
+    // إضافة مقارنة بمعدلات نظام رُشد الرسمية
+    const rushdSavings = calculateRushdSavings(selectedAircraft, 'electric');
 
     resultsContainer.innerHTML = `
         <div class="result-item">
@@ -490,16 +712,20 @@ function calculateEmissions(runtime, resultsContainer) {
             <div class="result-value" style="color: #264285;">${aircraftName}</div>
         </div>
         <div class="result-item">
-            <div class="result-label">انبعاثات APU</div>
+            <div class="result-label">انبعاثات APU الحالية</div>
             <div class="result-value warning">${Math.round(apuEmissions.co2)} كغ CO₂</div>
         </div>
         <div class="result-item">
-            <div class="result-label">انبعاثات الطاقة الأرضية</div>
-            <div class="result-value success">${Math.round(groundEmissions)} كغ CO₂</div>
+            <div class="result-label">انبعاثات مع نظام رُشد</div>
+            <div class="result-value success">${Math.round(totalOptimalEmissions)} كغ CO₂</div>
         </div>
         <div class="result-item">
-            <div class="result-label">التوفير في الانبعاثات</div>
+            <div class="result-label">التوفير المحسوب</div>
             <div class="result-value success">${Math.round(co2Savings)} كغ CO₂</div>
+        </div>
+        <div class="result-item">
+            <div class="result-label">توفير نظام رُشد الرسمي</div>
+            <div class="result-value success" style="font-weight: bold;">${Math.round(rushdSavings)} كغ CO₂</div>
         </div>
         <div class="result-item">
             <div class="result-label">وقود APU مستهلك</div>
@@ -508,6 +734,11 @@ function calculateEmissions(runtime, resultsContainer) {
         <div class="result-item">
             <div class="result-label">كفاءة التحسن</div>
             <div class="result-value success">${efficiencyPercent}%</div>
+        </div>
+        <div class="comparison-note">
+            <small style="color: #666;">
+                * التوفير الرسمي لنظام رُشد مبني على 40 دقيقة تشغيل قياسية
+            </small>
         </div>
     `;
 }

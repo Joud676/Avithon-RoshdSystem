@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>إدارة الفريق الأرضي - نظام رُشد</title>
+    <link rel="icon" type="image/png" href="../Media/roshdLogo-Blue-Vertical.png">
+    <link rel="stylesheet" href="../CSS/employee.css">
+    <link rel="stylesheet" href="../CSS/dashboard.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <img class="logo-icon" src="../Media/roshdLogo-white.png" alt="شعار رُشد">
+                <h1> إدارة الفريق الأرضي</h1>
+                <p>تحسين توزيع الموظفين وزيادة كفاءة الخدمات الأرضية</p>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="left-panel">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📊 الإحصائيات المباشرة</h3>
+                        <div class="status-indicator">
+                            <div class="status-dot status-online"></div>
+                            <span>متصل مباشر</span>
+                        </div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalCrew">24</div>
+                            <div class="stat-label">إجمالي الفريق</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="availableCrew">18</div>
+                            <div class="stat-label">متاح</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="busyCrew">5</div>
+                            <div class="stat-label">منشغل</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="avgResponseTime">4.2</div>
+                            <div class="stat-label">متوسط الاستجابة (دقائق)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">👨‍🔧 الفريق الأرضي</h3>
+                        <button class="btn btn-primary" onclick="refreshCrewStatus()">
+                            🔄 تحديث
+                        </button>
+                    </div>
+                    <div class="crew-grid" id="crewGrid"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📋 التكليفات الحالية</h3>
+                        <span class="status-indicator">
+                            <div class="status-dot status-online"></div>
+                            <span id="activeAssignments">8 مهام نشطة</span>
+                        </span>
+                    </div>
+                    <div class="assignment-board" id="assignmentBoard"></div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="ai-suggestions">
+                    <div class="ai-header">
+                        <div class="ai-icon">🤖</div>
+                        <div>
+                            <h3 style="color: #2196f3; margin: 0;">اقتراحات الذكاء الاصطناعي</h3>
+                            <p style="margin: 5px 0 0 0; color: #666; font-size: 0.9em;">توصيات مُحسّنة لزيادة الكفاءة
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="aiSuggestions">
+                        <div class="suggestion-item">
+                            <div class="suggestion-header">
+                                <span class="suggestion-type">🔄 إعادة توزيع</span>
+                                <span class="suggestion-priority">أولوية عالية</span>
+                            </div>
+                            <div class="suggestion-description">
+                                نقل فريق GPU من البوابة A3 إلى F1 - الرحلة XY2847 تحتاج خدمة عاجلة
+                            </div>
+                            <div class="suggestion-benefits">
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">⏱️</span>
+                                    <span>توفير 8 دقائق في وقت الاستجابة</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">🌱</span>
+                                    <span>تقليل 127 كغ CO₂ إضافية</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">💰</span>
+                                    <span>توفير 340 ريال في تكاليف التشغيل</span>
+                                </div>
+                            </div>
+                            <div class="suggestion-actions">
+                                <button class="btn btn-success" onclick="applySuggestion(1)">
+                                    ✅ تطبيق فوري
+                                </button>
+                                <button class="btn btn-secondary" onclick="scheduleSuggestion(1)">
+                                    📅 جدولة
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="suggestion-item">
+                            <div class="suggestion-header">
+                                <span class="suggestion-type">⚡ تحسين كفاءة</span>
+                                <span class="suggestion-priority">أولوية متوسطة</span>
+                            </div>
+                            <div class="suggestion-description">
+                                تجميع خدمة PCA للرحلات SV2156 و F31508 - نفس المنطقة والتوقيت
+                            </div>
+                            <div class="suggestion-benefits">
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">👥</span>
+                                    <span>توحيد فريق واحد بدلاً من اثنين</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">⚡</span>
+                                    <span>زيادة كفاءة التشغيل بنسبة 23%</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">🕒</span>
+                                    <span>توفير 12 دقيقة من الانتظار</span>
+                                </div>
+                            </div>
+                            <div class="suggestion-actions">
+                                <button class="btn btn-success" onclick="applySuggestion(2)">
+                                    ✅ تطبيق
+                                </button>
+                                <button class="btn btn-secondary" onclick="viewDetails(2)">
+                                    📊 التفاصيل
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="suggestion-item">
+                            <div class="suggestion-header">
+                                <span class="suggestion-type">📈 استباقي</span>
+                                <span class="suggestion-priority">أولوية منخفضة</span>
+                            </div>
+                            <div class="suggestion-description">
+                                تحضير فريق GPU للرحلات القادمة في المحطة الدولية خلال 15 دقيقة
+                            </div>
+                            <div class="suggestion-benefits">
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">🎯</span>
+                                    <span>تجهيز استباقي للذروة المسائية</span>
+                                </div>
+                                <div class="benefit-item">
+                                    <span class="benefit-icon">📉</span>
+                                    <span>تجنب التأخير في 3 رحلات</span>
+                                </div>
+                            </div>
+                            <div class="suggestion-actions">
+                                <button class="btn btn-primary" onclick="scheduleSuggestion(3)">
+                                    ⏰ جدولة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">⚡ إجراءات سريعة</h3>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <button class="btn btn-primary" onclick="showOptimizationModal()">
+                            🧠 تحسين تلقائي للتوزيع
+                        </button>
+                        <button class="btn btn-success" onclick="emergencyReallocation()">
+                            🚨 إعادة توزيع طارئة
+                        </button>
+                        <button class="btn btn-secondary" onclick="generateReport()">
+                            📊 تقرير الأداء
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">📈 مؤشرات الأداء</h3>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>كفاءة التوزيع:</span>
+                            <strong style="color: #28a745;">87%</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>وقت الاستجابة المتوسط:</span>
+                            <strong style="color: #2196f3;">4.2 دقيقة</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>معدل تطبيق الاقتراحات:</span>
+                            <strong style="color: #264285;">92%</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>التوفير اليومي المحقق:</span>
+                            <strong style="color: #28a745;">2,340 ريال</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="optimizationModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: #264285; margin-bottom: 20px;">🧠 التحسين التلقائي للتوزيع</h2>
+            <p style="margin-bottom: 20px;">سيقوم الذكاء الاصطناعي بتحليل الوضع الحالي واقتراح التوزيع الأمثل للفريق.
+            </p>
+
+            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h4>النتائج المتوقعة:</h4>
+                <ul style="margin: 10px 0; padding-right: 20px;">
+                    <li>تحسين وقت الاستجابة بنسبة 15%</li>
+                    <li>توفير 1,200 ريال يومياً</li>
+                    <li>تقليل 450 كغ CO₂ إضافية</li>
+                    <li>زيادة رضا العملاء بنسبة 8%</li>
+                </ul>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeModal()">إلغاء</button>
+                <button class="btn btn-success" onclick="applyOptimization()">✅ تطبيق التحسين</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="../JS/employee.js"></script>
+</body>
+
+</html>

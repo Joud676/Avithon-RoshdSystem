@@ -8,22 +8,30 @@
         "A320-neo": {
             "model": "Airbus A320-neo",
             "apuConsumption": 126,
-            "maxPassengers": 180
+            "maxPassengers": 180,
+            "co2PerMinute": 6.64,
+            "dailyFlights": 250
         },
         "A320-ceo": {
             "model": "Airbus A320-ceo",
             "apuConsumption": 126,
-            "maxPassengers": 174
+            "maxPassengers": 174,
+            "co2PerMinute": 6.64,
+            "dailyFlights": 250
         },
         "B777-300ER": {
             "model": "Boeing 777-300ER",
             "apuConsumption": 312,
-            "maxPassengers": 396
+            "maxPassengers": 396,
+            "co2PerMinute": 16.43,
+            "dailyFlights": 60
         },
         "A330-300": {
             "model": "Airbus A330-300",
             "apuConsumption": 210,
-            "maxPassengers": 335
+            "maxPassengers": 335,
+            "co2PerMinute": 11.06,
+            "dailyFlights": 40
         }
     },
     "emissionFactors": {
@@ -47,8 +55,58 @@
                 "fuelConsumption": 7,
                 "fuelDensity": 6.0,
                 "emissionFactor": 2.681,
-                "unit": "liters/hr, kg/L, kg CO2/L"
+                "unit": "liters/hr, kg/L, kg CO2/L",
+                "co2PerHour": 16.086,
+                "co2PerMinute": 0.268
+            },
+            "combined": {
+                "electric": {
+                    "co2PerHour": 20.086,
+                    "co2PerMinute": 0.335
+                },
+                "diesel": {
+                    "co2PerHour": 57.086,
+                    "co2PerMinute": 0.951
+                },
+                "mixed": {
+                    "co2PerHour": 38.586,
+                    "co2PerMinute": 0.643
+                }
             }
+        }
+    },
+    "savingsData": {
+        "perFlight": {
+            "A320": {
+                "electric": 152.6,
+                "mixed": 140.3,
+                "diesel": 128.0
+            },
+            "B777-300ER": {
+                "electric": 397.3,
+                "mixed": 385.0,
+                "diesel": 372.7
+            },
+            "A330-300": {
+                "electric": 263.1,
+                "mixed": 250.8,
+                "diesel": 238.5
+            }
+        },
+        "weightedAverage": {
+            "electric": 207.2,
+            "mixed": 194.9,
+            "diesel": 182.6
+        },
+        "daily": {
+            "electric": 72520,
+            "mixed": 68215,
+            "diesel": 63910
+        },
+        "annual": {
+            "electric": 26463000,
+            "mixed": 24893000,
+            "diesel": 23324000
         }
     },
     "airlines": {
@@ -98,7 +156,7 @@
             "apu": {
                 "status": "مُشغل",
                 "startTime": "2025-01-27T13:50:00Z",
-                "duration": 40
+                "duration": 15
             },
             "groundPower": {
                 "gpu": {
@@ -154,7 +212,7 @@
             "apu": {
                 "status": "مُشغل",
                 "startTime": "2025-01-27T12:35:00Z",
-                "duration": 115
+                "duration": 25
             },
             "groundPower": {
                 "gpu": {
@@ -182,7 +240,7 @@
             "apu": {
                 "status": "مُشغل",
                 "startTime": "2025-01-27T11:20:00Z",
-                "duration": 190
+                "duration": 35
             },
             "groundPower": {
                 "gpu": {
@@ -195,33 +253,145 @@
                     "startTime": null
                 }
             }
+        },
+        {
+            "id": "FL005",
+            "flightNumber": "SV8901",
+            "airline": "SV",
+            "aircraftType": "A320-neo",
+            "registration": "HZ-AS23",
+            "gate": "E2",
+            "status": "على الأرض",
+            "arrival": "2025-01-27T13:20:00Z",
+            "departure": "2025-01-27T16:45:00Z",
+            "passengers": 167,
+            "apu": {
+                "status": "مُشغل",
+                "startTime": "2025-01-27T13:25:00Z",
+                "duration": 18
+            },
+            "groundPower": {
+                "gpu": {
+                    "connected": false,
+                    "type": null,
+                    "startTime": null
+                },
+                "pca": {
+                    "connected": true,
+                    "startTime": "2025-01-27T13:40:00Z"
+                }
+            }
+        },
+        {
+            "id": "FL006",
+            "flightNumber": "XY2847",
+            "airline": "XY",
+            "aircraftType": "A320-neo",
+            "registration": "HZ-NS31",
+            "gate": "F1",
+            "status": "على الأرض",
+            "arrival": "2025-01-27T14:00:00Z",
+            "departure": "2025-01-27T17:15:00Z",
+            "passengers": 155,
+            "apu": {
+                "status": "مُشغل",
+                "startTime": "2025-01-27T14:05:00Z",
+                "duration": 12
+            },
+            "groundPower": {
+                "gpu": {
+                    "connected": true,
+                    "type": "electric",
+                    "startTime": "2025-01-27T14:10:00Z"
+                },
+                "pca": {
+                    "connected": false,
+                    "startTime": null
+                }
+            }
+        },
+        {
+            "id": "FL007",
+            "flightNumber": "F31508",
+            "airline": "F3",
+            "aircraftType": "A320-ceo",
+            "registration": "HZ-FA22",
+            "gate": "G3",
+            "status": "على الأرض",
+            "arrival": "2025-01-27T12:45:00Z",
+            "departure": "2025-01-27T15:30:00Z",
+            "passengers": 162,
+            "apu": {
+                "status": "مُشغل",
+                "startTime": "2025-01-27T12:50:00Z",
+                "duration": 42
+            },
+            "groundPower": {
+                "gpu": {
+                    "connected": false,
+                    "type": null,
+                    "startTime": null
+                },
+                "pca": {
+                    "connected": false,
+                    "startTime": null
+                }
+            }
+        },
+        {
+            "id": "FL008",
+            "flightNumber": "SV3456",
+            "airline": "SV",
+            "aircraftType": "B777-300ER",
+            "registration": "HZ-AK25",
+            "gate": "H1",
+            "status": "على الأرض",
+            "arrival": "2025-01-27T13:30:00Z",
+            "departure": "2025-01-27T18:20:00Z",
+            "passengers": 389,
+            "apu": {
+                "status": "مُشغل",
+                "startTime": "2025-01-27T13:35:00Z",
+                "duration": 22
+            },
+            "groundPower": {
+                "gpu": {
+                    "connected": true,
+                    "type": "diesel",
+                    "startTime": "2025-01-27T13:45:00Z"
+                },
+                "pca": {
+                    "connected": true,
+                    "startTime": "2025-01-27T13:50:00Z"
+                }
+            }
         }
     ],
     "alerts": [
         {
             "id": "ALT001",
-            "flightNumber": "SV2156",
+            "flightNumber": "F31508",
             "type": "تجاوز وقت APU",
             "priority": "حرج",
-            "message": "الرحلة SV2156 تشغل APU لأكثر من 3 ساعات",
+            "message": "الرحلة F31508 تشغل APU لأكثر من 40 دقيقة بدون طاقة أرضية",
             "timestamp": "2025-01-27T14:20:00Z",
             "status": "نشط"
         },
         {
             "id": "ALT002",
-            "flightNumber": "F31205",
-            "type": "تجاوز وقت APU",
+            "flightNumber": "SV2156",
+            "type": "تحسين الكفاءة",
             "priority": "تحذير",
-            "message": "الرحلة F31205 تشغل APU لأكثر من ساعة بدون طاقة أرضية",
+            "message": "يُنصح بتوصيل GPU للرحلة SV2156 لتوفير الانبعاثات",
             "timestamp": "2025-01-27T14:05:00Z",
             "status": "نشط"
         },
         {
             "id": "ALT003",
-            "flightNumber": "XY1847",
-            "type": "تنبيه مسبق",
+            "flightNumber": "SV8901",
+            "type": "تنبيه وقائي",
             "priority": "تنبيه",
-            "message": "الرحلة XY1847 تقترب من حد الساعة للـ APU",
+            "message": "الرحلة SV8901 تقترب من الحد الموصى به (15 دقيقة)",
             "timestamp": "2025-01-27T14:25:00Z",
             "status": "نشط"
         }

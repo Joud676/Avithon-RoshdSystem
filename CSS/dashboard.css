@@ -27,7 +27,7 @@
 }
 
 body {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     color: #264285;
     line-height: 1.6;
@@ -261,6 +261,12 @@ body {
     margin-bottom: 1rem;
 }
 
+.badge {
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+}
+
 .aircraft-id {
     font-size: 1.1rem;
     font-weight: bold;
@@ -272,6 +278,12 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     margin-bottom: 1rem;
+}
+
+.details {
+    background-color: #b3d7de;
+    border-radius: none;
+    color: #070836;
 }
 
 .detail-item {
