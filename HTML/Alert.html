@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام التنبيهات - رشد نحو أرض ذكية وسماء نقية</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/Alert.css">
+   
+</head>
+<body>
+    <div class="header-section">
+        <div class="header-content">
+                <div class="logo">
+                <img class="logo-icon" src="../Media/roshdLogo-white.png" alt="شعار رُشد">
+                
+                <div class="logo_Text">
+                    <p>نحو أرضٍ ذكية وسماءٍ نقية</p>
+                </div>
+            </div>
+            
+            <div class="header-title">
+                <h1>
+                    <i class="fas fa-exclamation-triangle"></i>
+                    نظام التنبيهات
+                </h1>
+                <div class="header-subtitle">مراقبة وإدارة وحدات GPU و APU - المطارات السعودية</div>
+            </div>
+            <div class="header-status">
+                <div class="status-time" id="currentTime"></div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>النظام متصل</span>
+                </div>
+                <div class="auto-refresh-indicator">
+                    <i class="fas fa-sync-alt refresh-icon"></i>
+                    <span>تحديث تلقائي</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="alerts-dashboard">
+            <div class="dashboard-header">
+                <div class="dashboard-title">
+                    <i class="fas fa-list-alt"></i>
+                    لوحة التنبيهات الرئيسية
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalAlerts">0</div>
+                        <div class="stat-label">إجمالي التنبيهات</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="activeAlerts">0</div>
+                        <div class="stat-label">التنبيهات النشطة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="urgentAlerts">0</div>
+                        <div class="stat-label">التنبيهات الطارئة</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="integrated-controls">
+                <div class="controls-header">
+                    <div class="controls-title">
+                        <i class="fas fa-filter"></i>
+                        أدوات الفلترة والبحث
+                    </div>
+                </div>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-tags"></i>
+                            نوع التنبيه
+                        </label>
+                        <select class="filter-select" id="alertTypeFilter">
+                            <option value="">جميع الأنواع</option>
+                            <option value="timeout">⏰ تجاوز وقت التشغيل</option>
+                            <option value="double">⚡ تشغيل مزدوج</option>
+                            <option value="power_delay">🔌 تأخر الطاقة الأرضية</option>
+                            <option value="maintenance">🔧 صيانة مطلوبة</option>
+                            <option value="fuel_system">⛽ نظام الوقود</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-toggle-on"></i>
+                            حالة التنبيه
+                        </label>
+                        <select class="filter-select" id="statusFilter">
+                            <option value="">جميع الحالات</option>
+                            <option value="active">🟢 نشط</option>
+                            <option value="closed">⚪ مغلق</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-exclamation-circle"></i>
+                            مستوى الأولوية
+                        </label>
+                        <select class="filter-select" id="priorityFilter">
+                            <option value="">جميع المستويات</option>
+                            <option value="red">🔴 طارئ - أحمر</option>
+                            <option value="yellow">🟡 متوسط - أصفر</option>
+                            <option value="blue">🔵 منخفض - أزرق</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alerts-content">
+                <div id="alertsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="autoRefreshNotification" class="auto-refresh-notification" style="display: none;">
+        <i class="fas fa-sync-alt refresh-icon"></i>
+        <span>تم تحديث البيانات تلقائياً</span>
+    </div>
+
+    <div id="noteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-sticky-note"></i>
+                <div class="modal-title">إضافة ملاحظات للتنبيه</div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">نص الملاحظة:</label>
+                    <textarea class="form-control textarea" id="noteText" placeholder="اكتب ملاحظاتك التفصيلية هنا..."></textarea>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn btn-cancel" onclick="closeModal('noteModal')">
+                    <i class="fas fa-times"></i>
+                    إلغاء
+                </button>
+                <button class="action-btn btn-confirm" onclick="saveNote()">
+                    <i class="fas fa-save"></i>
+                    حفظ الملاحظة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="assignModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <i class="fas fa-users"></i>
+                <div class="modal-title">إعادة توجيه المهمة</div>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">الفريق المختص:</label>
+                    <select class="form-control" id="teamSelect">
+                        <option value="">اختر الفريق المناسب...</option>
+                        <option value="maintenance">🔧 فريق الصيانة التقنية</option>
+                        <option value="operations">⚙️ فريق العمليات الجوية</option>
+                        <option value="ground_support">🚛 فريق الدعم الأرضي</option>
+                        <option value="electrical">⚡ فريق الأنظمة الكهربائية</option>
+                        <option value="safety">🛡️ فريق السلامة والأمان</option>
+                        <option value="management">👔 الإدارة العليا</option>
+                        <option value="fuel_systems">⛽ فريق أنظمة الوقود</option>
+                        <option value="air_traffic">📡 فريق مراقبة الحركة الجوية</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ملاحظات إضافية:</label>
+                    <textarea class="form-control textarea" id="assignNote" placeholder="أضف تعليمات أو ملاحظات خاصة للفريق المختص..."></textarea>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn btn-cancel" onclick="closeModal('assignModal')">
+                    <i class="fas fa-times"></i>
+                    إلغاء
+                </button>
+                <button class="action-btn btn-assign" onclick="assignTask()">
+                    <i class="fas fa-paper-plane"></i>
+                    توجيه المهمة
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/Alert.js"></script>
+</body>
+</html>
